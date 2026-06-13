@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ECICEP — Estrategia de Cuidado Integral Centrado en las Personas</title>
+  <style>
+  .volver-menu {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 999;
+    background: #1c2e4a;
+    color: white;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 10px 14px;
+    border-radius: 999px;
+    box-shadow: 0 4px 12px rgba(0,0,0,.22);
+  }
+
+  .volver-menu:hover {
+    background: #2e4d7d;
+  }
+
+    /* ── Tokens ── */
+    :root {
+      --indigo:     #1e3a5f;
+      --indigo-mid: #2b5494;
+      --indigo-pale:#e8eef8;
+      --teal:       #1a7a6e;
+      --teal-pale:  #e5f5f2;
+      --amber:      #b45309;
+      --amber-pale: #fef3cd;
+      --rose:       #b91c1c;
+      --rose-pale:  #fce7e7;
+      --green:      #166534;
+      --green-pale: #dcfce7;
+      --ink:        #1c2e3a;
+      --muted:      #566475;
+      --border:     #d0dae4;
+      --bg:         #f5f7fa;
+      --white:      #ffffff;
+      --shadow:     0 1px 5px rgba(0,0,0,.08);
+      --radius:     7px;
+      --font:       'Segoe UI', Arial, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      font-size: 15px;
+      line-height: 1.72;
+      color: var(--ink);
+      background: var(--bg);
+    }
+   
+    /* ── HEADER ── */
+    header {
+      background: linear-gradient(130deg, var(--indigo) 0%, #1a7a6e 100%);
+      color: #fff;
+      padding: 44px 36px 36px;
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: '';
+      position: absolute;
+      right: -80px; bottom: -80px;
+      width: 340px; height: 340px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.05);
+    }
+    .h-badge {
+      display: inline-block;
+      background: var(--teal);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      padding: 3px 11px;
+      border-radius: 3px;
+      margin-bottom: 14px;
+    }
+    header h1 {
+      font-size: clamp(22px, 3.8vw, 36px);
+      font-weight: 800;
+      letter-spacing: -.5px;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+    header p.sub {
+      font-size: 14px;
+      opacity: .82;
+      max-width: 640px;
+    }
+    .h-src {
+      margin-top: 18px;
+      font-size: 12px;
+      opacity: .62;
+    }
+    .h-src a { color: #a8e6df; text-decoration: none; }
+
+    /* ── STICKY NAV ── */
+    nav.toc {
+      background: var(--white);
+      border-bottom: 3px solid var(--teal);
+      padding: 0 28px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow);
+    }
+    nav.toc ul { display: flex; flex-wrap: wrap; list-style: none; }
+    nav.toc a {
+      display: block;
+      padding: 13px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      text-decoration: none;
+      border-bottom: 3px solid transparent;
+      white-space: nowrap;
+      transition: color .2s, border-color .2s;
+    }
+    nav.toc a:hover { color: var(--teal); border-color: var(--teal); }
+
+    /* ── LAYOUT ── */
+    main {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 32px 22px 70px;
+    }
+
+    /* ── CHAPTER LABELS ── */
+    .chap {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .13em;
+      color: #fff;
+      background: var(--indigo-mid);
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 3px;
+      margin: 42px 0 18px;
+    }
+
+    /* ── MODULE ── */
+    .mod {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 32px;
+      overflow: hidden;
+    }
+    .mod-head {
+      padding: 18px 24px 14px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .ico {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; flex-shrink: 0;
+    }
+    .ico-indigo { background: var(--indigo-pale); color: var(--indigo-mid); }
+    .ico-teal   { background: var(--teal-pale);   color: var(--teal); }
+    .ico-amber  { background: var(--amber-pale);  color: var(--amber); }
+    .mod-head h2 { font-size: 17px; font-weight: 700; color: var(--indigo); }
+    .mod-head .num { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+    .mod-body { padding: 22px 24px; }
+
+    /* ── SUBTITLES ── */
+    h3 {
+      font-size: 13.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--teal);
+      margin: 24px 0 10px;
+      padding-bottom: 5px;
+      border-bottom: 1px solid var(--teal-pale);
+    }
+    h3:first-child { margin-top: 0; }
+
+    p { margin-bottom: 10px; }
+    ul, ol { padding-left: 20px; margin-bottom: 12px; }
+    li { margin-bottom: 5px; }
+    strong { color: var(--indigo); }
+
+    /* ── BOXES ── */
+    .box {
+      border-left: 4px solid;
+      padding: 13px 16px;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      margin: 14px 0;
+      font-size: 14px;
+    }
+    .box-teal   { border-color: var(--teal);       background: var(--teal-pale); }
+    .box-indigo { border-color: var(--indigo-mid); background: var(--indigo-pale); }
+    .box-amber  { border-color: var(--amber);      background: var(--amber-pale); }
+    .box-rose   { border-color: var(--rose);       background: var(--rose-pale); }
+    .box-green  { border-color: var(--green);      background: var(--green-pale); }
+    .box-t { font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 5px; }
+    .box-teal   .box-t { color: var(--teal); }
+    .box-indigo .box-t { color: var(--indigo-mid); }
+    .box-amber  .box-t { color: var(--amber); }
+    .box-rose   .box-t { color: var(--rose); }
+    .box-green  .box-t { color: var(--green); }
+
+    /* ── TABLES ── */
+    .tw { overflow-x: auto; margin: 14px 0; }
+    table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+    thead tr { background: var(--indigo); color: #fff; }
+    thead th { padding: 10px 13px; text-align: left; font-weight: 600; font-size: 12.5px; letter-spacing: .03em; }
+    tbody tr:nth-child(even) { background: #f4f7fb; }
+    tbody td { padding: 9px 13px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    .td-l { font-weight: 600; color: var(--indigo); white-space: nowrap; }
+
+    /* ── PILLS ── */
+    .pill {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .p-indigo { background: var(--indigo-pale); color: var(--indigo-mid); }
+    .p-teal   { background: var(--teal-pale);   color: var(--teal); }
+    .p-amber  { background: var(--amber-pale);  color: var(--amber); }
+    .p-rose   { background: var(--rose-pale);   color: var(--rose); }
+    .p-green  { background: var(--green-pale);  color: var(--green); }
+
+    /* ── STRAT GRID ── */
+    .sg {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+      margin: 16px 0;
+    }
+    .sc {
+      border-radius: var(--radius);
+      padding: 16px;
+      border: 1px solid;
+    }
+    .sc .sl { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 4px; }
+    .sc .sv { font-size: 22px; font-weight: 800; margin-bottom: 6px; }
+    .sc p    { font-size: 13px; color: #444; }
+    .g0 { background: #f0fdf4; border-color: #86efac; }
+    .g0 .sl,.g0 .sv { color: #15803d; }
+    .g1 { background: #eff6ff; border-color: #93c5fd; }
+    .g1 .sl,.g1 .sv { color: #1d4ed8; }
+    .g2 { background: #fffbeb; border-color: #fcd34d; }
+    .g2 .sl,.g2 .sv { color: #92400e; }
+    .g3 { background: var(--rose-pale); border-color: #fca5a5; }
+    .g3 .sl,.g3 .sv { color: var(--rose); }
+
+    /* ── PROCHASKA ── */
+    .stages { list-style: none; padding: 0; margin: 16px 0; counter-reset: st; }
+    .stages li {
+      counter-increment: st;
+      display: flex;
+      gap: 14px;
+      margin-bottom: 14px;
+      align-items: flex-start;
+    }
+    .stages li::before {
+      content: counter(st);
+      flex-shrink: 0;
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      background: var(--indigo-mid);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .st-inner { padding-top: 3px; }
+    .st-inner strong { display: block; font-size: 14px; color: var(--indigo); margin-bottom: 2px; }
+    .st-inner span   { font-size: 13.5px; color: var(--muted); }
+
+    /* ── PARIS TABLE ── */
+    .paris-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 10px;
+      margin: 14px 0;
+    }
+    .pc {
+      background: var(--indigo-pale);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px;
+      text-align: center;
+    }
+    .pc .pi { font-size: 26px; font-weight: 800; color: var(--indigo-mid); line-height: 1; }
+    .pc .pn { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: var(--indigo); margin: 4px 0 3px; }
+    .pc .pd { font-size: 12px; color: var(--muted); }
+
+    /* ── STEP FLOW ── */
+    .flow { list-style: none; padding: 0; margin: 0; }
+    .flow li {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 12px;
+      align-items: flex-start;
+    }
+    .fn {
+      flex-shrink: 0;
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background: var(--teal);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .ft { padding-top: 2px; font-size: 14px; }
+
+    /* ── BARRIER GRID ── */
+    .bg2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 14px 0;
+    }
+    @media (max-width: 560px) { .bg2 { grid-template-columns: 1fr; } }
+    .bc {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px;
+    }
+    .bc h4 { font-size: 13px; font-weight: 700; margin-bottom: 8px; }
+    .bc ul { margin: 0; font-size: 13.5px; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--indigo);
+      color: rgba(255,255,255,.65);
+      font-size: 12px;
+      text-align: center;
+      padding: 22px 24px;
+    }
+    footer a { color: #a8e6df; text-decoration: none; }
+
+    @media print {
+      nav.toc { display: none; }
+      body { background: #fff; font-size: 12px; }
+      .mod-body { page-break-inside: avoid; }
+    }
+
+    * {
+  box-sizing: border-box;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* TABLET */
+@media (max-width: 1024px) {
+  main,
+  .contenedor,
+  .container,
+  .contenido {
+    width: 92%;
+    max-width: 100%;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.4rem;
+  }
+}
+
+/* TELÉFONO */
+@media (max-width: 768px) {
+  header {
+    padding: 32px 18px;
+    text-align: center;
+  }
+
+  main,
+  .contenedor,
+  .container,
+  .contenido {
+    width: 94%;
+    padding: 20px 0;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+    line-height: 1.2;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+  }
+
+  p,
+  li {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .card,
+  .tarjeta,
+  .bloque,
+  section {
+    width: 100%;
+  }
+
+  .grid,
+  .cards,
+  .contenedor-tarjetas {
+    grid-template-columns: 1fr;
+    flex-direction: column;
+  }
+
+  .btn,
+  .boton,
+  button,
+  a.boton,
+  a.btn {
+    width: 100%;
+    display: block;
+    text-align: center;
+  }
+}
+  </style>
+</head>
+<body>
+    <a class="volver-menu" href="../index.html">← Volver al menú principal</a>
+
+<!-- HEADER -->
+<header>
+  <h1>Estrategia de Cuidado Integral Centrado en las Personas - ECICEP</h1>
+  <div class="h-src">
+    Fuentes: 
+    <a href="https://redcronicas.minsal.cl/temas-de-salud/ecicep/" target="_blank">Red Crónicas MINSAL</a> ·
+    <a href="https://miaps.cl/aps/temas/ecicep/" target="_blank">miaps.cl / ECICEP</a> ·
+    <a href="https://www.uandes.cl/wp-content/uploads/2024/07/RSC-Vol2-Cap3.pdf" target="_blank">RSC UANDES 2024</a> ·
+    Marco Operativo ECICEP MINSAL 2021/2025
+  </div>
+</header>
+
+<!-- STICKY NAV -->
+<nav class="toc">
+  <ul>
+    <li><a href="#s1">¿Qué es ECICEP?</a></li>
+    <li><a href="#s2">Clasificación de riesgo</a></li>
+    <li><a href="#s3">Equipos</a></li>
+    <li><a href="#s4">G1/G2 — Moderado/Leve</a></li>
+    <li><a href="#s5">G3 - Alto riesgo</a></li>
+    <li><a href="#s6">Prochaska y DiClemente</a></li>
+    <li><a href="#s7">PCIC</a></li>
+    <li><a href="#s8">PCIC Clínica</a></li>
+    <li><a href="#s9">Ética y CI</a></li>
+    <li><a href="#s10">Barreras</a></li>
+    <li><a href="#s11">Enfermería</a></li>
+  </ul>
+</nav>
+
+<main>
+
+<!-- ═══════════════════════════════════════
+     CAPÍTULO 1 — FUNDAMENTOS
+════════════════════════════════════════ -->
+<div class="chap">Fundamentos de la Estrategia</div>
+
+<!-- QUÉ ES ECICEP -->
+<section class="mod" id="s1">
+  <div class="mod-head">
+    <div class="ico ico-indigo">🏥</div>
+    <div>
+      <h2>¿Qué es ECICEP?</h2>
+    </div>
+  </div>
+  <div class="mod-body">
+
+    <h3>Definición y origen</h3>
+    <p>La <strong>Estrategia de Cuidado Integral Centrado en las Personas (ECICEP)</strong> es una estrategia del Ministerio de Salud de Chile (MINSAL) publicada en enero de 2020, diseñada para la <strong>promoción, prevención y manejo de la cronicidad en contexto de multimorbilidad</strong>, basada en los principios del Modelo de Atención Integral de Salud Familiar y Comunitario (MAIS), dirigida a la población de 15 años y más que recibe prestaciones en el sistema público de salud.</p>
+
+    <div class="box box-indigo">
+      <div class="box-t">Contexto epidemiológico (ENS 2016–2017)</div>
+      Cerca de <strong>11 millones de chilenos adultos</strong> con enfermedades crónicas requieren atención médica. De ellos, <strong>9 millones</strong> conviven con 2 o más enfermedades crónicas y <strong>2 millones</strong> con 5 o más. El sistema de salud chileno podía atender solo a un máximo de 4 millones de personas con ECNT anualmente.
+    </div>
+
+    <h3>¿Por qué surge la ECICEP?</h3>
+    <p>La ECICEP surge ante la necesidad de superar la fragmentación de la atención por programas basados en patologías individuales, que llevaba a intervenciones clínicas ineficaces en personas con multimorbilidad, indicaciones no coordinadas y asistencia frecuente a distintos puntos de atención.</p>
+    <p>Busca configurar una nueva forma de proveer atención en la red de salud, aspirando a que las personas cuenten con:</p>
+    <ul>
+      <li><strong>Cuidados integrales</strong> centrados en la persona y no en la enfermedad.</li>
+      <li><strong>Continuidad del cuidado</strong> a través de la red asistencial.</li>
+      <li><strong>Incorporación de las necesidades del entorno</strong> (familia, comunidad).</li>
+      <li><strong>Calidad y eficiencia</strong> de la atención.</li>
+      <li><strong>Rol activo de la persona</strong> en la gestión de su propia salud (automanejo).</li>
+    </ul>
+
+    <h3>Principios fundamentales</h3>
+    <div class="tw">
+      <table>
+        <thead>
+          <tr><th>Principio</th><th>Descripción</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-l">Centrado en la persona</td>
+            <td>Respeto a la autonomía y dignidad de cada paciente. Atención en un espacio de confianza y respeto, no solo en "la enfermedad".</td>
+          </tr>
+          <tr>
+            <td class="td-l">Participación activa</td>
+            <td>Toma de Decisiones Compartidas (TDC): la evidencia clínica se combina con los valores, preferencias y expectativas de la persona.</td>
+          </tr>
+          <tr>
+            <td class="td-l">Comunicación efectiva</td>
+            <td>Uso de habilidades comunicacionales (modelo PARIS) para evocar el cambio y apoyar la autoeficacia.</td>
+          </tr>
+          <tr>
+            <td class="td-l">Trabajo en equipo multidisciplinario</td>
+            <td>Colaboración de médicos, enfermeras/os, nutricionistas, TENS, QF, psicólogo, kinesiólogo y otros según necesidad.</td>
+          </tr>
+          <tr>
+            <td class="td-l">Integralidad del cuidado</td>
+            <td>Aborda dimensiones biológica, psicológica, social, espiritual y familiar de la persona (MAIS).</td>
+          </tr>
+          <tr>
+            <td class="td-l">Proactividad del sistema</td>
+            <td>Sistema de salud proactivo: anticipa necesidades, rescata, acompaña y no espera que la persona se descompense.</td>
+          </tr>
+          <tr>
+            <td class="td-l">Continuidad del cuidado</td>
+            <td>Seguimiento coordinado a través de todos los niveles de la red asistencial (APS, urgencia, hospitalización).</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Etapas de implementación</h3>
+    <ul class="flow">
+      <li><div class="fn">I</div><div class="ft"><strong>Preparación previa:</strong> estratificación de la población por riesgo, revisión del historial clínico biopsicosocial, visita domiciliaria si es factible, contacto inicial informativo con el paciente, organización de agendas diferenciadas.</div></li>
+      <li><div class="fn">II</div><div class="ft"><strong>Implementación del cuidado:</strong> ingreso integral (dupla médico + profesional no médico), evaluación integral, elaboración del Plan de Cuidado Integral Consensuado (PCIC), organización del seguimiento.</div></li>
+      <li><div class="fn">III</div><div class="ft"><strong>Continuidad del cuidado:</strong> controles integrales, seguimiento a distancia (telefónico), gestión de caso (G3), transición del cuidado (alta hospitalaria/urgencia → APS).</div></li>
+    </ul>
+  </div>
+</section>
+
+<!-- CLASIFICACIÓN POR RIESGO -->
+<section class="mod" id="s2">
+  <div class="mod-head">
+    <div class="ico ico-teal">📊</div>
+    <div>
+      <h2>Clasificación por Riesgo (Estratificación)</h2>
+    </div>
+  </div>
+  <div class="mod-body">
+
+    <h3>Estratificación de la población</h3>
+    <p>La estratificación se obtiene a través de los sistemas de registro clínico electrónico disponibles, permitiendo distinguir el nivel de complejidad de la persona en situación de cronicidad y agruparlas según riesgo. El método recomendado por MINSAL considera el <strong>conteo ponderado de patologías y criterios de priorización</strong> de cada individuo.</p>
+
+    <div class="sg">
+      <div class="sc g0">
+        <div class="sl">G0 — Sin cronicidad</div>
+        <div class="sv">Sano</div>
+        <p>Sin condiciones crónicas identificadas. Estrategia: <strong>actividades preventivas y de promoción de la salud</strong>.</p>
+      </div>
+      <div class="sc g1">
+        <div class="sl">G1 — Bajo riesgo</div>
+        <div class="sv">1 condición</div>
+        <p>Presencia de <strong>1 condición crónica</strong>. Estrategia principal: <strong>apoyo para el automanejo</strong>.</p>
+      </div>
+      <div class="sc g2">
+        <div class="sl">G2 — Riesgo moderado</div>
+        <div class="sv">2–4 condiciones</div>
+        <p><strong>Multimorbilidad</strong> (2 a 4 condiciones crónicas). Alto riesgo, menor complejidad. Estrategia: <strong>gestión de la condición crónica</strong>.</p>
+      </div>
+      <div class="sc g3">
+        <div class="sl">G3 — Alto riesgo</div>
+        <div class="sv">≥5 condiciones</div>
+        <p>Cronicidad compleja con <strong>mayor carga de fragilidad y multimorbilidad (≥5 condiciones)</strong>. Estrategia: <strong>gestión integral de la persona</strong>.</p>
+      </div>
+    </div>
+
+    <h3>Criterios de Priorización (puntaje ponderado)</h3>
+    <p>Para ajustar la clasificación se aplican criterios clínicos y no clínicos:</p>
+    <div class="tw">
+      <table>
+        <thead>
+          <tr><th>Criterio</th><th>Puntaje</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>HbA1c &gt; 11%</td><td>+1</td></tr>
+          <tr><td>PA ≥180/110 mmHg en al menos 2 tomas (técnica estándar)</td><td>+1</td></tr>
+          <tr><td>Polifarmacia (≥7 medicamentos distintos/día)</td><td>+1</td></tr>
+          <tr><td>Asistencia a urgencias por descompensación de patología crónica en el último mes</td><td>+1</td></tr>
+          <tr><td>Hospitalización por descompensación crónica en los últimos 3 meses</td><td>+2</td></tr>
+          <tr><td>Amputación por DM hace menos de 6 meses</td><td>+2</td></tr>
+          <tr><td>Persona ≥75 años con: autovalente con riesgo / riesgo dependencia / dependiente, riesgo alto de caídas (get up and go), sin redes de apoyo</td><td>+1</td></tr>
+          <tr><td>Hospitalización por patología aguda en los últimos 3 meses</td><td>+1</td></tr>
+          <tr><td>Úlcera activa en extremidades inferiores</td><td>+1</td></tr>
+          <tr><td>Ideación o intento suicida (registrado hace menos de 6 meses)</td><td>−1</td></tr>
+          <tr><td>Educación mayor a 12 años</td><td>−1</td></tr>
+          <tr><td>Redes de apoyo activas</td><td>−1 (recurso protector)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="box box-amber">
+      <div class="box-t">⚠ Reorganización por riesgo, no por programa</div>
+      La ECICEP implica reestructurar las tareas del establecimiento <strong>desde la perspectiva del nivel de riesgo individual</strong> de las personas, y no desde la lógica de los programas de salud por patología.
+    </div>
+  </div>
+</section>
+
+<!-- EQUIPOS -->
+<section class="mod" id="s3">
+  <div class="mod-head">
+    <div class="ico ico-indigo">👥</div>
+    <div>
+      <h2>Equipos para la Implementación del ECICEP</h2>
+    </div>
+  </div>
+  <div class="mod-body">
+
+    <h3>Redefinición de roles</h3>
+    <p>La implementación de la ECICEP requiere redefinir roles al interior del equipo de salud e incorporar nuevas funciones según el nivel de riesgo de las personas.</p>
+
+    <div class="tw">
+      <table>
+        <thead>
+          <tr><th>Rol / Actor</th><th>Función principal en ECICEP</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-l">Dupla Gestora del Cuidado<br><small>(Profesional + TENS)</small></td>
+            <td>Acompaña a personas con condiciones crónicas de alta complejidad. Facilita atención y provisión de cuidados. Énfasis en apoyo al automanejo y planificación/coordinación de prestaciones. Contacto inicial, preparación del ingreso, agendamiento.</td>
+          </tr>
+          <tr>
+            <td class="td-l">Dupla de Ingreso<br><small>(Médico + Profesional no médico)</small></td>
+            <td>Realiza el ingreso integral. Puede definirse según las temáticas principales del caso o vínculos previos de la persona con profesionales del centro. Elabora el PCIC.</td>
+          </tr>
+          <tr>
+            <td class="td-l">Médico/a</td>
+            <td>Encargado del ingreso integral y de la continuidad de la atención clínica según el plan de cuidados. Realiza controles médicos pertinentes.</td>
+          </tr>
+          <tr>
+            <td class="td-l">Profesionales no médicos<br><small>(Enfermería, Nutrición, QF, Kinesiología, etc.)</small></td>
+            <td>Colaboran en cada ingreso y control. Educan y apoyan el automanejo. Participan en el seguimiento y continuidad del cuidado desde su área de competencia.</td>
+          </tr>
+          <tr>
+            <td class="td-l">TENS</td>
+            <td>Rol clave en el vínculo con el usuario y la comunidad. Consejerías telefónicas, rescates domiciliarios, confirmación de horas, recepción del usuario, seguimiento de acuerdos del PCIC a distancia.</td>
+          </tr>
+          <tr>
+            <td class="td-l">Gestor/a Comunitario/a</td>
+            <td>Facilitador/a de la atención y provisión de cuidados a la persona y su familia. Asesora a la dupla gestora. Énfasis en recursos comunitarios y redes de apoyo.</td>
+          </tr>
+          <tr>
+            <td class="td-l">Profesional de Enlace (PDE)</td>
+            <td>Facilitador/a de la transición del cuidado entre APS y niveles secundario/terciario (alta hospitalaria, urgencia). Coordina y asegura la continuidad del PCIC en la red.</td>
+          </tr>
+          <tr>
+            <td class="td-l">Coordinador/a ECICEP</td>
+            <td>Liderazgo participativo del proceso. Programa, gestiona y supervisa las actividades del equipo ECICEP en el establecimiento.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Coeficientes técnicos de programación</h3>
+    <div class="tw">
+      <table>
+        <thead>
+          <tr><th>Actividad</th><th>G3 (Alto)</th><th>G2/G1 (Moderado/Leve)</th><th>Equipo</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Ingreso Integral</td>
+            <td>60 min (1 actividad)</td>
+            <td>45 min (1 actividad)</td>
+            <td>Médico + Profesional no médico</td>
+          </tr>
+          <tr>
+            <td>Control Integral</td>
+            <td>45 min (2 controles/año)</td>
+            <td>45 min (2 controles/año)</td>
+            <td>Médico o Profesional no médico</td>
+          </tr>
+          <tr>
+            <td>Seguimiento a distancia</td>
+            <td>15 min (6/año)</td>
+            <td>15 min (6/año)</td>
+            <td>Profesional / TENS</td>
+          </tr>
+          <tr>
+            <td>Gestión administrativa de caso</td>
+            <td>20 min (6/año)</td>
+            <td>—</td>
+            <td>Profesional / TENS</td>
+          </tr>
+          <tr>
+            <td>Visita domiciliaria integral</td>
+            <td>60 min (1/año)</td>
+            <td>—</td>
+            <td>Profesional / TENS</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     CAPÍTULO 2 — ATENCIONES POR NIVEL
+════════════════════════════════════════ -->
+<div class="chap">Atenciones Cuidado Integral por Nivel de Riesgo</div>
+
+<!-- G1/G2 MODERADO/LEVE -->
+<section class="mod" id="s5">
+  <div class="mod-head">
+    <div class="ico ico-teal">🟡</div>
+    <div>
+      <div class="num">Módulo 5</div>
+      <h2>Atenciones Cuidado Integral — Riesgo Leve G1 y Moderado G2</h2>
+    </div>
+  </div>
+  <div class="mod-body">
+
+     <h3>Perfil G1 — Riesgo Leve / Bajo</h3>
+    <p>Personas con <strong>1 condición crónica</strong>. Principal estrategia: apoyo para el automanejo, educación y seguimiento programado.</p>
+
+    <h3>Perfil G2 — Riesgo Moderado</h3>
+    <p>Personas con <strong>2 a 4 condiciones crónicas</strong> (multimorbilidad de menor complejidad). Principal estrategia: gestión de la condición crónica, apoyo al automanejo y coordinación de cuidados.</p>
+
+    <h3>Ingreso Integral G1/G2</h3>
+    <ul>
+      <li><strong>Dupla de ingreso:</strong> médico/a + profesional no médico.</li>
+      <li><strong>Duración:</strong> 45 minutos.</li>
+      <li>Elaboración del PCIC acorde al nivel de complejidad y prioridades de la persona.</li>
+      <li>Registro en ficha clínica electrónica (Rayen) y REM.</li>
+    </ul>
+
+    <h3>Control Integral G1/G2</h3>
+    <ul>
+      <li><strong>Frecuencia:</strong> 2 controles integrales al año (45 min cada uno).</li>
+      <li>Reevaluación de avances del PCIC y ajuste según evolución clínica.</li>
+      <li>Lo realiza médico o profesional no médico según plan.</li>
+    </ul>
+
+    <h3>Seguimiento a distancia G1/G2</h3>
+    <ul>
+      <li><strong>6 seguimientos/año</strong> (15 min c/u): apoyo al automanejo, adherencia, resolución de dudas, refuerzo positivo.</li>
+    </ul>
+
+    <div class="box box-indigo">
+      <div class="box-t">Gestión de caso en G1/G2 (cuando corresponde)</div>
+      Aunque la gestión de caso está dirigida principalmente a G3, puede aplicarse en G1 o G2 según las complejidades del caso (barreras de acceso relevantes, fragilidad social, baja adherencia persistente, etc.).
+    </div>
+
+    <div class="tw">
+      <table>
+        <thead>
+          <tr><th>Componente</th><th>G1 (leve)</th><th>G2 (moderado)</th><th>G3 (alto)</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Ingreso integral</td>
+            <td>45 min</td>
+            <td>45 min</td>
+            <td>60 min</td>
+          </tr>
+          <tr>
+            <td>Controles integrales/año</td>
+            <td>2</td>
+            <td>2</td>
+            <td>2</td>
+          </tr>
+          <tr>
+            <td>Seguimientos a distancia/año</td>
+            <td>6 (15 min)</td>
+            <td>6 (15 min)</td>
+            <td>6 (15 min)</td>
+          </tr>
+          <tr>
+            <td>Gestión de caso</td>
+            <td>Solo si corresponde</td>
+            <td>Solo si corresponde</td>
+            <td>Sí (6/año, 20 min)</td>
+          </tr>
+          <tr>
+            <td>Visita domiciliaria</td>
+            <td>No programada</td>
+            <td>No programada</td>
+            <td>1/año (60 min)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- G3 ALTO RIESGO -->
+<section class="mod" id="s4">
+  <div class="mod-head">
+    <div class="ico ico-amber">🔴</div>
+    <div>
+      <h2>Atenciones Cuidado Integral — Alto Riesgo G3</h2>
+    </div>
+  </div>
+  <div class="mod-body">
+
+    <h3>Perfil del usuario G3</h3>
+    <p>Personas con <strong>≥5 condiciones crónicas</strong> y/o alta carga de fragilidad y multimorbilidad, que requieren un abordaje más individualizado, intenso y coordinado. Incluye adultos mayores frágiles, con dependencia, pluripatología descompensada, hospitalizaciones recurrentes o sin redes de apoyo.</p>
+
+    <h3>Ingreso Integral G3</h3>
+    <ul>
+      <li><strong>Dupla de ingreso:</strong> médico/a + profesional no médico (enfermera/o u otro según necesidad del caso).</li>
+      <li><strong>Duración:</strong> 60 minutos.</li>
+      <li>El foco no es solo la enfermedad, sino la persona en su entorno: necesidades, expectativas, recursos y características del contexto biopsicosocial.</li>
+      <li>Se elabora el <strong>Plan de Cuidado Integral Consensuado (PCIC)</strong> con objetivos a corto, mediano y largo plazo.</li>
+      <li>Registro en REM, formulario de ingreso ECICEP (REM 05, Sección V) y ficha clínica electrónica (Rayen).</li>
+    </ul>
+
+    <h3>Control Integral G3</h3>
+    <ul>
+      <li><strong>Frecuencia:</strong> 2 controles integrales al año (45 min cada uno).</li>
+      <li>Revisión de avances del PCIC, reevaluación clínica y funcional, ajuste del plan.</li>
+      <li>Puede realizarlo médico o profesional no médico según lo indicado en el plan.</li>
+    </ul>
+
+    <h3>Gestión de caso G3 (Gestión del Cuidado)</h3>
+    <p>El seguimiento y acompañamiento activo está <strong>dirigido principalmente a G3</strong>. Incluye:</p>
+    <ul>
+      <li><strong>6 seguimientos a distancia/año</strong> (15 min c/u): monitoreo telefónico, refuerzo positivo, identificación de necesidad de atención presencial.</li>
+      <li><strong>6 gestiones administrativas de caso/año</strong> (20 min c/u): coordinación de prestaciones, rescate, facilitación de acceso.</li>
+      <li><strong>1 visita domiciliaria integral/año</strong> (60 min): cuando el usuario no puede desplazarse o se requiere información del contexto familiar/habitacional.</li>
+    </ul>
+
+    <div class="box box-teal">
+      <div class="box-t">Rol clave del TENS en G3</div>
+      El TENS desarrolla el vínculo con el usuario y la comunidad: consejerías telefónicas de apoyo al automanejo, rescates domiciliarios, información y confirmación de horas médicas, recepción en atenciones. El contacto telefónico es relevante para conocer la situación y discriminar la necesidad de atención presencial oportuna.
+    </div>
+
+    <h3>Transición del Cuidado (G3 y casos complejos)</h3>
+    <p>Apoya a la persona en su tránsito por la red (hospitalización/urgencias). El <strong>Profesional de Enlace (PDE)</strong> facilita la comunicación entre APS y niveles secundario/terciario durante el alta hasta el retorno a APS, apuntando a mejorar la calidad del cuidado y reducir re-hospitalizaciones.</p>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════
+     CAPÍTULO 3 — MODELO TRANSTEÓRICO
+════════════════════════════════════════ -->
+<div class="chap">Modelo Transteórico del Cambio</div>
+
+<section class="mod" id="s6">
+  <div class="mod-head">
+    <div class="ico ico-teal">🔄</div>
+    <div>
+      <h2>Modelo Transteórico de Prochaska y DiClemente</h2>
+    </div>
+  </div>
+  <div class="mod-body">
+
+    <p>El Marco Operativo ECICEP 2025 integra el modelo de Prochaska y DiClemente como herramienta para <strong>comprender y acompañar el proceso de cambio de comportamiento</strong> de las personas con condiciones crónicas. Permite al equipo de salud identificar en qué etapa se encuentra la persona y adaptar las intervenciones educativas y de apoyo al automanejo de forma pertinente.</p>
+
+    <p>El modelo sostiene que el cambio de conducta no es un evento sino un <strong>proceso dinámico y cíclico</strong> de 5 etapas, y que las recaídas son parte normal del proceso.</p>
+
+    <h3>Las 5 Etapas del Cambio</h3>
+    <ol class="stages">
+      <li>
+        <div class="st-inner">
+          <strong>Precontemplación</strong>
+          <span>La persona no reconoce el problema ni considera cambiar en los próximos 6 meses. No se siente afectada o minimiza los riesgos. Intervención: generar conciencia sin confrontar, entrega de información básica.</span>
+        </div>
+      </li>
+      <li>
+        <div class="st-inner">
+          <strong>Contemplación</strong>
+          <span>La persona reconoce el problema y considera cambiar en los próximos 6 meses, pero existe ambivalencia (pros y contras). Intervención: explorar ambivalencia, fortalecer motivación y autoeficacia.</span>
+        </div>
+      </li>
+      <li>
+        <div class="st-inner">
+          <strong>Preparación (Determinación)</strong>
+          <span>La persona planifica el cambio para los próximos 30 días. Ha tomado pequeños pasos. Intervención: apoyar la elaboración de un plan concreto y realista (PCIC).</span>
+        </div>
+      </li>
+      <li>
+        <div class="st-inner">
+          <strong>Acción</strong>
+          <span>La persona está implementando cambios activamente (hace menos de 6 meses). Intervención: refuerzo positivo, resolución de obstáculos, mantenimiento de la motivación.</span>
+        </div>
+      </li>
+      <li>
+        <div class="st-inner">
+          <strong>Mantenimiento</strong>
+          <span>El cambio se ha sostenido por más de 6 meses. Hay riesgo de recaída. Intervención: consolidar logros, prevención de recaídas, fortalecer red de apoyo y automanejo.</span>
+        </div>
+      </li>
+    </ol>
+
+    <div class="box box-amber">
+      <div class="box-t">La Recaída no es un fracaso</div>
+      Es parte del proceso. La persona puede volver a cualquier etapa anterior. El equipo debe normalizar la recaída, identificar los factores desencadenantes y replantear el PCIC con la persona sin juicios de valor.
+    </div>
+
+    <h3>Aplicación en la práctica clínica ECICEP</h3>
+    <div class="tw">
+      <table>
+        <thead>
+          <tr><th>Etapa</th><th>Pregunta orientadora del equipo</th><th>Intervención sugerida</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="pill p-rose">Precontemplación</span></td>
+            <td>¿Sabe por qué está aquí? ¿Qué entiende de su condición?</td>
+            <td>Entregar información sin imponer. Explorar percepción de riesgo.</td>
+          </tr>
+          <tr>
+            <td><span class="pill p-amber">Contemplación</span></td>
+            <td>¿Qué lo detiene de cambiar? ¿Qué pasaría si cambiara?</td>
+            <td>Técnica de balanza decisional. Entrevista Motivacional (EM).</td>
+          </tr>
+          <tr>
+            <td><span class="pill p-indigo">Preparación</span></td>
+            <td>¿Qué cambio específico quiere intentar primero?</td>
+            <td>Ayudar a establecer metas concretas y realistas en el PCIC.</td>
+          </tr>
+          <tr>
+            <td><span class="pill p-teal">Acción</span></td>
+            <td>¿Cómo le ha ido con el cambio? ¿Qué dificultades ha encontrado?</td>
+            <td>Refuerzo positivo, resolución de barreras, ajuste del PCIC.</td>
+          </tr>
+          <tr>
+            <td><span class="pill p-green">Mantenimiento</span></td>
+            <td>¿Qué estrategias usa para mantener el cambio?</td>
+            <td>Fortalecer autoeficacia, anticipar situaciones de riesgo de recaída.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Modelo PARIS — Habilidades Comunicacionales en ECICEP</h3>
+    <p>El PCIC y el acompañamiento del proceso de cambio requieren habilidades comunicacionales. El Marco Operativo ECICEP 2025 propone el acrónimo <strong>PARIS</strong>:</p>
+    <div class="paris-grid">
+      <div class="pc"><div class="pi">P</div><div class="pn">Preguntas Abiertas</div><div class="pd">Evocar discurso de cambio, invitar al diálogo</div></div>
+      <div class="pc"><div class="pi">A</div><div class="pn">Afirmaciones</div><div class="pd">Apoyar, promover la autoeficacia</div></div>
+      <div class="pc"><div class="pi">R</div><div class="pn">Reflejos</div><div class="pd">Facilitar la reflexión sobre la experiencia</div></div>
+      <div class="pc"><div class="pi">I</div><div class="pn">Información con permiso</div><div class="pd">Entrega de información según las necesidades de la persona</div></div>
+      <div class="pc"><div class="pi">S</div><div class="pn">Síntesis / Resumen</div><div class="pd">Relevar la ambivalencia, concluir, mover al siguiente paso</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     CAPÍTULO 4 — PLAN DE CUIDADO
+════════════════════════════════════════ -->
+<div class="chap">Plan de Cuidado Integral Consensuado</div>
+
+<!-- QUÉ ES EL PCIC -->
+<section class="mod" id="s7">
+  <div class="mod-head">
+    <div class="ico ico-indigo">📋</div>
+    <div>
+      <h2>Plan de Cuidado Integral Consensuado- PCIC</h2>
+    </div>
+  </div>
+  <div class="mod-body">
+
+    <h3>Definición</h3>
+    <p>El <strong>Plan de Cuidado Integral Consensuado (PCIC)</strong> es el eje conductor del quehacer del equipo de salud en la continuidad de los cuidados. Se elabora durante el ingreso integral y permite acordar con la persona <strong>objetivos y metas a corto, mediano y largo plazo</strong> para el automanejo de su situación crónica de salud en sus dimensiones física, psicoemocional, sociofamiliar y otras que la persona considere significativas.</p>
+
+    <div class="box box-teal">
+      <div class="box-t">Principio fundamental</div>
+      <strong>Una persona = un plan consensuado.</strong> Los contenidos, plazos y metas deben responder a las necesidades individuales, valores y preferencias de cada persona. No es un plan "estándar por patología".
+    </div>
+
+    <h3>Toma de Decisiones Compartidas (TDC) — Base del PCIC</h3>
+    <p>La TDC reconoce que la evidencia científica no es suficiente para tomar decisiones en salud: es necesario incorporar los valores, preferencias, expectativas y metas de la persona. Implica conocer los beneficios, riesgos, costos e inconvenientes de las alternativas disponibles.</p>
+    <p>Factores que facilitan o dificultan la TDC:</p>
+    <ul>
+      <li>Mayor edad y menor nivel educacional se asocian con menor participación en decisiones de salud → requiere mayor apoyo del equipo.</li>
+      <li>Red de apoyo activa y alfabetismo en salud facilitan la TDC.</li>
+    </ul>
+
+    <h3>Dimensiones del PCIC</h3>
+    <div class="tw">
+      <table>
+        <thead>
+          <tr><th>Dimensión</th><th>Aspectos a abordar</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-l">Salud Física</td>
+            <td>Diagnósticos, factores de riesgo, hábitos de vida, actividad laboral, estado funcional.</td>
+          </tr>
+          <tr>
+            <td class="td-l">Salud Mental</td>
+            <td>Enfermedades de salud mental, ciclo vital, factores estresantes, crisis vitales.</td>
+          </tr>
+          <tr>
+            <td class="td-l">Salud Familiar</td>
+            <td>Estructura y funcionalidad familiar, vulnerabilidad, redes de apoyo, cuidadores.</td>
+          </tr>
+          <tr>
+            <td class="td-l">Aspectos Sociales</td>
+            <td>Condiciones socioeconómicas, acceso a servicios, relación con la comunidad, determinantes sociales.</td>
+          </tr>
+          <tr>
+            <td class="td-l">Aspectos Preventivos</td>
+            <td>Tamizaje de cánceres, EMPA/EMPAM, factores de riesgo de accidentes, vacunación.</td>
+          </tr>
+          <tr>
+            <td class="td-l">Otros</td>
+            <td>Condiciones particulares de la persona que afecten su situación de salud o su disposición a implementar cambios (creencias, barreras culturales, preferencias personales).</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- PCIC EN PRÁCTICA CLÍNICA -->
+<section class="mod" id="s8">
+  <div class="mod-head">
+    <div class="ico ico-teal">🩺</div>
+    <div>
+      <h2>Componentes en la Práctica Clínica</h2>
+    </div>
+  </div>
+  <div class="mod-body">
+
+    <h3>Pasos para elaborar el PCIC (Marco Operativo ECICEP)</h3>
+    <ol class="flow">
+      <li><div class="fn">1</div><div class="ft"><strong>Enunciar diagnósticos, problemas y factores de riesgo</strong> de la persona, así como las alternativas generales de tratamiento disponibles.</div></li>
+      <li><div class="fn">2</div><div class="ft"><strong>Definir los problemas relevantes</strong> a manejar en conjunto con la persona (no una lista infinita: priorizar 1–3 focos).</div></li>
+      <li><div class="fn">3</div><div class="ft"><strong>Destacar los recursos y fortalezas</strong> de la persona y su familia para el manejo (red de apoyo, habilidades, motivación).</div></li>
+      <li><div class="fn">4</div><div class="ft"><strong>Definir objetivos de tratamiento</strong> que la persona y/o su familia consideren relevantes (toma de decisiones compartida).</div></li>
+      <li><div class="fn">5</div><div class="ft"><strong>Proponer alternativas</strong> para el logro de los objetivos, con sus beneficios, riesgos y costos.</div></li>
+      <li><div class="fn">6</div><div class="ft"><strong>Construir el plan de intervención y seguimiento</strong> con tiempos explícitos de cumplimiento y modalidad de control.</div></li>
+    </ol>
+
+    <h3>Estructura del registro del PCIC en la ficha clínica</h3>
+    <div class="tw">
+      <table>
+        <thead>
+          <tr><th>Bloque</th><th>Contenido mínimo</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-l">1. Identificación y contexto</td>
+            <td>Motivo/problema (1–2 frases). Antecedentes relevantes del día. Red de apoyo, cuidador/a, barreras de acceso, determinantes sociales si aplica.</td>
+          </tr>
+          <tr>
+            <td class="td-l">2. Evaluación y análisis</td>
+            <td>Evaluación clínica pertinente. Problemas priorizados (1–3 focos). Riesgos/alertas y criterio de urgencia.</td>
+          </tr>
+          <tr>
+            <td class="td-l">3. Plan y acuerdos</td>
+            <td>Objetivo(s) concretos y medibles. Intervención (indicaciones, educación, derivaciones). Acuerdos: "qué hará la persona" + "qué hará el equipo".</td>
+          </tr>
+          <tr>
+            <td class="td-l">4. Seguimiento</td>
+            <td>Plazo y modalidad (presencial/telefónico/mixto). Criterios de evaluación. Responsable(s) y coordinación.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="box box-rose">
+      <div class="box-t">⚠ Errores frecuentes en el PCIC</div>
+      <ul>
+        <li>"Se educa" sin especificar qué, sin acuerdos concretos ni barreras identificadas.</li>
+        <li>Plan sin justificación clínica (no se refleja el razonamiento).</li>
+        <li>Copiar y pegar textos largos genéricos, sin personalización.</li>
+        <li>No dejar seguimiento definido (plazo, modalidad, criterio de evaluación).</li>
+        <li>Registros débiles: "pie normal", "sin alteraciones", "se educa" → no permiten auditar ni dar continuidad.</li>
+      </ul>
+    </div>
+
+    <h3>Modalidades de Atención en el PCIC</h3>
+    <div class="tw">
+      <table>
+        <thead>
+          <tr><th>Modalidad</th><th>Descripción y objetivo</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-l">Ingreso integral</td>
+            <td>Establece la línea basal, prioriza problemas e inicia/actualiza el PCIC. REM 05, Sección V.</td>
+          </tr>
+          <tr>
+            <td class="td-l">Control integral</td>
+            <td>Reevaluación + avance de acuerdos del PCIC + ajustes del plan.</td>
+          </tr>
+          <tr>
+            <td class="td-l">Seguimiento a distancia</td>
+            <td>Monitoreo telefónico entre controles para sostener automanejo y adherencia. Se registra en ficha.</td>
+          </tr>
+          <tr>
+            <td class="td-l">Gestión de acompañamiento / Gestión de caso</td>
+            <td>Coordinación activa para G2–G3 o con barreras relevantes. Facilita el acceso y los acuerdos.</td>
+          </tr>
+          <tr>
+            <td class="td-l">Transición del cuidado (PDE)</td>
+            <td>Continuidad en red ante urgencias, hospitalizaciones, altas y derivaciones. A cargo del Profesional de Enlace.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     CAPÍTULO 5 — ÉTICA / BARRERAS / ENFERMERÍA
+════════════════════════════════════════ -->
+<div class="chap">Ética, Barreras y Rol de Enfermería</div>
+
+<!-- ÉTICA Y CI -->
+<section class="mod" id="s9">
+  <div class="mod-head">
+    <div class="ico ico-indigo">⚖️</div>
+    <div>
+      <h2>Consentimiento Informado y Ética en el PCIC</h2>
+    </div>
+  </div>
+  <div class="mod-body">
+
+    <h3>Marco ético del PCIC</h3>
+    <p>El PCIC se sustenta en principios éticos fundamentales reconocidos por la <strong>Ley 20.584</strong> (Derechos y Deberes de los Pacientes) y los principios del MAIS:</p>
+
+    <div class="tw">
+      <table>
+        <thead>
+          <tr><th>Principio ético</th><th>Aplicación en ECICEP</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-l">Autonomía</td>
+            <td>Toda persona tiene derecho a tomar decisiones informadas sobre su cuidado y tratamiento, en colaboración con el equipo de salud. El PCIC no puede imponerse: debe ser acordado y consensuado.</td>
+          </tr>
+          <tr>
+            <td class="td-l">Beneficencia / No maleficencia</td>
+            <td>Las intervenciones deben orientarse al bienestar integral de la persona. Evitar indicaciones no coordinadas que puedan ser perjudiciales en personas con multimorbilidad.</td>
+          </tr>
+          <tr>
+            <td class="td-l">Justicia</td>
+            <td>Acceso equitativo al cuidado integral. La estratificación prioriza a quienes tienen mayor necesidad, optimizando los recursos del sistema.</td>
+          </tr>
+          <tr>
+            <td class="td-l">Dignidad y respeto</td>
+            <td>Trato digno, respetuoso, con lenguaje adecuado y comprensible. Respeto por creencias, valores y preferencias. Sin discriminación.</td>
+          </tr>
+          <tr>
+            <td class="td-l">Confidencialidad</td>
+            <td>La información del PCIC es confidencial. La coordinación entre niveles de atención debe respetar la privacidad de los datos de salud.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Consentimiento Informado en el contexto del PCIC</h3>
+    <ul>
+      <li>El equipo de salud debe informar a la persona sobre la nueva modalidad de atención ECICEP, el proceso de acompañamiento y los objetivos, buscando <strong>potenciar su autonomía y autoeficacia</strong>.</li>
+      <li>Las personas deben recibir <strong>información oportuna y veraz</strong> sobre su estado de salud, enfermedades, alternativas terapéuticas disponibles y pronóstico (Ley 20.584).</li>
+      <li>El PCIC, al ser un plan consensuado, constituye en sí mismo un proceso de consentimiento dinámico: la persona puede modificar sus preferencias y objetivos en cualquier momento.</li>
+      <li>Especial atención en: adultos mayores con deterioro cognitivo (requiere participación de familiar o cuidador), barreras idiomáticas o culturales (enfoque intercultural, Decreto 21/2023 MINSAL).</li>
+      <li>Los acuerdos del PCIC <strong>deben quedar escritos</strong> con tiempos explícitos de cumplimiento y seguimiento en la ficha clínica.</li>
+    </ul>
+
+    <div class="box box-indigo">
+      <div class="box-t">Toma de decisiones compartidas (TDC) como práctica ética</div>
+      La TDC no es solo una técnica comunicacional: es una práctica ética que equilibra la evidencia científica con los valores y preferencias de la persona, evitando el modelo paternalista tradicional. El equipo de salud que practica la TDC respeta la dignidad del paciente como agente activo de su propia salud.
+    </div>
+  </div>
+</section>
+
+<!-- BARRERAS Y DESAFÍOS -->
+<section class="mod" id="s10">
+  <div class="mod-head">
+    <div class="ico ico-amber">⚡</div>
+    <div>
+      <h2>Barreras de Implementación y Desafíos Reales</h2>
+    </div>
+  </div>
+  <div class="mod-body">
+
+    <h3>Principales barreras identificadas en la implementación del ECICEP</h3>
+
+    <div class="bg2">
+      <div class="bc">
+        <h4 style="color:var(--rose)">🏛 Organizacionales / Sistema de Salud</h4>
+        <ul>
+          <li>Fragmentación inherente del sistema de salud por programas de patología.</li>
+          <li>Coexistencia de normativas y orientaciones programáticas que ofrecen esquemas de intervención fragmentados.</li>
+          <li>Ausencia de indicadores de integralidad en los registros estadísticos mensuales (REM).</li>
+          <li>Falta de registros clínicos electrónicos integrados e interactivos (Rayen vs. MIS vs. otras plataformas).</li>
+          <li>Tiempos de agenda insuficientes para atenciones de 45–60 min en contextos de alta demanda.</li>
+          <li>Resistencia institucional al cambio de modelo.</li>
+        </ul>
+      </div>
+      <div class="bc">
+        <h4 style="color:var(--amber)">👤 Equipos de Salud</h4>
+        <ul>
+          <li>Identidades profesionales e inercias históricas centradas en el modelo biomédico.</li>
+          <li>Dificultad para redefinir roles y desplazar la atención desde "la enfermedad" hacia "la persona".</li>
+          <li>Falta de capacitación en habilidades comunicacionales (entrevista motivacional, TDC, PARIS).</li>
+          <li>Sobrecarga de trabajo que dificulta la dedicación al seguimiento y la continuidad.</li>
+          <li>Rotación de personal que interrumpe la continuidad del PCIC y el vínculo con el usuario.</li>
+        </ul>
+      </div>
+      <div class="bc">
+        <h4 style="color:var(--indigo-mid)">🧑 Personas y Comunidades</h4>
+        <ul>
+          <li>Baja alfabetización en salud dificulta la participación activa en la TDC.</li>
+          <li>Mayor edad y/o menor nivel educacional se asocian con menor participación en decisiones.</li>
+          <li>Barreras geográficas, económicas y culturales de acceso a los controles.</li>
+          <li>Desconfianza hacia el sistema de salud o el equipo de salud.</li>
+          <li>Escasa red de apoyo social y familiar en contextos de vulnerabilidad.</li>
+        </ul>
+      </div>
+      <div class="bc">
+        <h4 style="color:var(--teal)">🔧 Técnicos / Registro</h4>
+        <ul>
+          <li>Dificultad para estratificar automáticamente a la población (ACG u otros modelos).</li>
+          <li>Registros débiles o incompletos que impiden la continuidad del cuidado entre profesionales.</li>
+          <li>Confusión entre herramientas de registro (RUI vs. RCE Rayen).</li>
+          <li>Falta de trazabilidad entre el PCIC registrado y el seguimiento efectivo.</li>
+          <li>Ingreso ECICEP sin plan de cuidado asociado (no es un ingreso integral real).</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Desafíos reales y estrategias de superación</h3>
+    <div class="tw">
+      <table>
+        <thead>
+          <tr><th>Desafío</th><th>Estrategia sugerida (Marco Operativo ECICEP 2025)</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Resistencia al cambio en el equipo</td>
+            <td>Gestión del cambio con liderazgo participativo. Reuniones de equipo, discusión de casos, inducción de nuevos profesionales. Capacitación en SIAD MINSAL y cursos OPS.</td>
+          </tr>
+          <tr>
+            <td>Fragmentación por programas</td>
+            <td>Reorganizar la agenda y los roles desde la perspectiva del nivel de riesgo individual, no por programa de salud.</td>
+          </tr>
+          <tr>
+            <td>Registro de baja calidad</td>
+            <td>Uso del checklist de registro "a prueba de auditoría". Usar RUI como herramienta de apoyo (no sustituto del RCE). Supervisión del REM antes de que salga del centro.</td>
+          </tr>
+          <tr>
+            <td>Baja adherencia del usuario</td>
+            <td>Identificar etapa del modelo transteórico. Aplicar entrevista motivacional y PARIS. Rescates activos por TENS. Seguimiento telefónico entre controles.</td>
+          </tr>
+          <tr>
+            <td>Continuidad en red</td>
+            <td>Profesional de Enlace (PDE) para transición del cuidado. Coordinación activa entre APS y nivel secundario/terciario.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ROL DE ENFERMERÍA -->
+<section class="mod" id="s11">
+  <div class="mod-head">
+    <div class="ico ico-teal">👩‍⚕️</div>
+    <div>
+      <h2>Rol de Enfermería en ECICEP</h2>
+    </div>
+  </div>
+  <div class="mod-body">
+
+    <h3>Posición estratégica de la enfermería en ECICEP</h3>
+    <p>El/la profesional de enfermería ocupa un rol central en la implementación del ECICEP, actuando como <strong>puente entre la persona, su familia y el equipo de salud</strong>, con capacidad para integrarse en todas las etapas y modalidades de la estrategia. Su formación en valoración integral, educación en salud, gestión del cuidado y trabajo comunitario la convierte en un actor clave del modelo.</p>
+
+    <h3>Funciones del Profesional de Enfermería según etapa ECICEP</h3>
+
+    <div class="tw">
+      <table>
+        <thead>
+          <tr><th>Etapa / Modalidad</th><th>Funciones de Enfermería</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-l">Preparación previa (Estratificación)</td>
+            <td>Participar en la identificación y estratificación de la población por riesgo. Revisar historial clínico. Colaborar en el contacto inicial con el usuario.</td>
+          </tr>
+          <tr>
+            <td class="td-l">Ingreso Integral<br>(Dupla de Ingreso)</td>
+            <td>Participar en la dupla de ingreso (médico + profesional no médico). Realizar valoración integral de la persona en sus dimensiones clínica, funcional, psicosocial y familiar. Aplicar instrumentos de valoración pertinentes (escalas funcionales, PHQ-9, Morisky-Green, ERUPD, etc.). Co-elaborar el PCIC con la persona y el equipo.</td>
+          </tr>
+          <tr>
+            <td class="td-l">Control Integral</td>
+            <td>Reevaluar el estado de salud y avance de los acuerdos del PCIC. Detectar elementos de descompensación y daño de órganos blancos. Ajustar el plan de cuidados. Derivar a médico oportunamente si es necesario.</td>
+          </tr>
+          <tr>
+            <td class="td-l">Seguimiento a distancia</td>
+            <td>Realizar contactos telefónicos de apoyo al automanejo, adherencia y monitoreo de acuerdos. Registrar el contacto y los acuerdos en la ficha clínica.</td>
+          </tr>
+          <tr>
+            <td class="td-l">Gestión de caso (G3)</td>
+            <td>Liderar o co-liderar la gestión de caso en personas de alta complejidad. Coordinar prestaciones, activar recursos de la red y la comunidad, supervisar el cumplimiento del PCIC.</td>
+          </tr>
+          <tr>
+            <td class="td-l">Dupla Gestora del Cuidado</td>
+            <td>Acompañar a las personas con condiciones crónicas complejas. Planificar y coordinar las prestaciones. Énfasis en automanejo. Asesora al TENS en sus funciones de seguimiento.</td>
+          </tr>
+          <tr>
+            <td class="td-l">Visita Domiciliaria Integral</td>
+            <td>Valorar el entorno físico, social y familiar. Detectar barreras no identificadas en el centro de salud. Educar in situ al usuario y cuidadores. Fortalecer la red de apoyo.</td>
+          </tr>
+          <tr>
+            <td class="td-l">Transición del cuidado</td>
+            <td>Actuar como Profesional de Enlace (PDE) en la coordinación entre APS y el nivel hospitalario. Contactar al usuario tras alta hospitalaria para retomar el PCIC.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Competencias clave de enfermería para el ECICEP</h3>
+    <div class="bg2">
+      <div class="bc">
+        <h4 style="color:var(--teal)">Clínicas</h4>
+        <ul>
+          <li>Valoración integral biopsicosocial.</li>
+          <li>Manejo de instrumentos de evaluación funcional, cognitiva y mental.</li>
+          <li>Evaluación del pie diabético (ERUPD) y técnica de monofilamento.</li>
+          <li>Educación en insulinoterapia y automonitoreo.</li>
+          <li>Identificación de signos de descompensación y daño de órganos blancos.</li>
+        </ul>
+      </div>
+      <div class="bc">
+        <h4 style="color:var(--indigo-mid)">Comunicacionales / Relacionales</h4>
+        <ul>
+          <li>Entrevista motivacional y técnica PARIS.</li>
+          <li>Toma de Decisiones Compartidas (TDC).</li>
+          <li>Identificación de etapa del modelo transteórico de Prochaska y DiClemente.</li>
+          <li>Consejería breve y educación para la salud individualizada.</li>
+          <li>Empatía, respeto y trato digno centrado en la persona.</li>
+        </ul>
+      </div>
+      <div class="bc">
+        <h4 style="color:var(--amber)">Gestión y Coordinación</h4>
+        <ul>
+          <li>Elaboración y seguimiento del PCIC.</li>
+          <li>Coordinación con equipo multidisciplinario y red asistencial.</li>
+          <li>Gestión de caso en personas complejas (G3).</li>
+          <li>Registro clínico de calidad (RCE Rayen, REM).</li>
+          <li>Rescate activo de usuarios sin controles.</li>
+        </ul>
+      </div>
+      <div class="bc">
+        <h4 style="color:var(--rose)">Comunitarias</h4>
+        <ul>
+          <li>Visita domiciliaria integral y valoración del entorno.</li>
+          <li>Vinculación con recursos comunitarios y redes de apoyo.</li>
+          <li>Enfoque familiar en el cuidado de la cronicidad.</li>
+          <li>Trabajo intersectorial para determinantes sociales de la salud.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="box box-green">
+      <div class="box-t">✅ Aporte diferencial de enfermería en ECICEP</div>
+      La enfermera/o puede desempeñar el control integral ECICEP en forma autónoma (sin médico), especialmente en personas compensadas o en controles de seguimiento, contribuyendo significativamente a la capacidad resolutiva del equipo. Además, su rol en educación, automanejo y seguimiento es insustituible para la sostenibilidad del PCIC a largo plazo.
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>Material elaborado por: Victoria Catalina Tiznado Jara</p>
+</footer>
+
+</body>
+</html>

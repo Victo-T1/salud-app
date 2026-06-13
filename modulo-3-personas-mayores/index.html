@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Programa Nacional de Personas Mayores </title>
+<style>
+    .volver-menu {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 999;
+    background: #1c2e4a;
+    color: white;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 10px 14px;
+    border-radius: 999px;
+    box-shadow: 0 4px 12px rgba(0,0,0,.22);
+  }
+
+  .volver-menu:hover {
+    background: #2e4d7d;
+  }
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;600&display=swap');
+  :root {
+    --azul-estado:#003D7A;--azul-medio:#005FA3;--azul-claro:#1A7BBF;
+    --verde-aps:#007A5E;--verde-claro:#00A07A;--naranja-alerta:#C94F00;
+    --amarillo-ges:#D4A017;--gris-texto:#1C1C1E;--gris-suave:#F4F6F9;
+    --gris-borde:#D0D9E4;--blanco:#FFFFFF;--rojo-mal:#B91C1C;
+    --tipografia:'IBM Plex Sans',system-ui,sans-serif;
+    --mono:'IBM Plex Mono',monospace;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--tipografia);color:var(--gris-texto);background:var(--gris-suave);font-size:15px;line-height:1.65}
+  header{background:var(--azul-estado);color:var(--blanco);position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.25)}
+  .header-top{display:flex;align-items:center;gap:14px;padding:14px 32px;border-bottom:3px solid var(--verde-aps)}
+  .header-badge{background:var(--verde-aps);color:white;font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.08em;padding:4px 10px;border-radius:3px;white-space:nowrap}
+  .header-top h1{font-size:15px;font-weight:600;letter-spacing:.01em}
+  .header-top h1 span{opacity:.55;font-weight:300;margin-left:6px}
+  nav{display:flex;gap:0;overflow-x:auto;padding:0 24px;scrollbar-width:none}
+  nav::-webkit-scrollbar{display:none}
+  nav a{color:rgba(255,255,255,.75);text-decoration:none;font-size:11.5px;font-weight:500;letter-spacing:.04em;padding:10px 15px;white-space:nowrap;border-bottom:2px solid transparent;transition:color .2s,border-color .2s;text-transform:uppercase}
+  nav a:hover{color:white;border-bottom-color:var(--verde-aps)}
+  .hero{background:linear-gradient(135deg,var(--azul-estado) 0%,var(--azul-medio) 55%,var(--verde-aps) 100%);color:white;padding:60px 32px 52px;text-align:center}
+  .hero-eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:14px}
+  .hero h2{font-size:clamp(24px,4vw,40px);font-weight:700;line-height:1.2;max-width:680px;margin:0 auto 14px}
+  .hero p{font-size:14.5px;color:rgba(255,255,255,.75);max-width:560px;margin:0 auto}
+  .hero-stats{display:flex;justify-content:center;gap:40px;flex-wrap:wrap;margin-top:36px;border-top:1px solid rgba(255,255,255,.15);padding-top:28px}
+  .stat-num{font-size:30px;font-weight:700;font-family:var(--mono);color:#7FDDBB;display:block}
+  .stat-label{font-size:11px;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.06em}
+  .main-wrap{max-width:980px;margin:0 auto;padding:44px 24px 80px;display:flex;flex-direction:column;gap:44px}
+  .seccion{background:white;border-radius:10px;border:1px solid var(--gris-borde);overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,.05)}
+  .seccion-header{padding:22px 30px 18px;border-bottom:1px solid var(--gris-borde);display:flex;align-items:flex-start;gap:14px}
+  .seccion-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;margin-top:2px}
+  .icon-azul{background:#E8F0F9}.icon-verde{background:#E6F4F1}.icon-naranja{background:#FDF0E6}.icon-amarillo{background:#FDF7E3}
+  .seccion-header-text h2{font-size:19px;font-weight:700;color:var(--azul-estado);line-height:1.25}
+  .seccion-header-text .subtitulo-sec{font-size:11px;color:#6B7A90;font-family:var(--mono);letter-spacing:.04em;margin-top:4px;text-transform:uppercase}
+  .seccion-body{padding:26px 30px}
+  .subseccion{margin-bottom:34px}
+  .subseccion:last-child{margin-bottom:0}
+  .subseccion h3{font-size:15px;font-weight:700;color:var(--azul-medio);margin-bottom:10px;padding-bottom:8px;border-bottom:2px solid var(--gris-borde);display:flex;align-items:center;gap:8px}
+  .subseccion h3 .tag{font-family:var(--mono);font-size:10px;font-weight:600;background:var(--azul-medio);color:white;padding:2px 7px;border-radius:3px;letter-spacing:.04em}
+  .subseccion h4{font-size:12.5px;font-weight:700;color:var(--verde-aps);margin:14px 0 6px;text-transform:uppercase;letter-spacing:.05em}
+  p{margin-bottom:10px}p:last-child{margin-bottom:0}
+  ul,ol{padding-left:20px;margin-bottom:10px}
+  li{margin-bottom:4px}li:last-child{margin-bottom:0}
+  .card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px;margin:14px 0}
+  .card{background:var(--gris-suave);border:1px solid var(--gris-borde);border-radius:8px;padding:15px}
+  .card-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--azul-estado);margin-bottom:8px}
+  .card p,.card li{font-size:13px}
+  .tabla-wrap{overflow-x:auto;margin:12px 0;border-radius:8px;border:1px solid var(--gris-borde)}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  thead tr{background:var(--azul-estado);color:white}
+  th{padding:10px 14px;text-align:left;font-weight:600;font-size:12px;letter-spacing:.03em}
+  td{padding:9px 14px;border-bottom:1px solid var(--gris-borde);vertical-align:top}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr:nth-child(even){background:#F8FAFD}
+  .callout{border-radius:8px;padding:13px 17px;margin:13px 0;font-size:13.5px;border-left:4px solid}
+  .callout-azul{background:#EBF3FB;border-color:var(--azul-claro);color:#1A3A5C}
+  .callout-verde{background:#E6F4F1;border-color:var(--verde-aps);color:#003D2E}
+  .callout-naranja{background:#FDF0E6;border-color:var(--naranja-alerta);color:#5C1F00}
+  .callout-amarillo{background:#FDFAED;border-color:var(--amarillo-ges);color:#4A3500}
+  .callout strong{display:block;margin-bottom:4px;font-size:11px;text-transform:uppercase;letter-spacing:.05em}
+  .flujo{display:flex;flex-direction:column;align-items:center;gap:0;margin:20px 0}
+  .flujo-nodo{background:white;border:2px solid var(--azul-medio);border-radius:8px;padding:12px 22px;text-align:center;font-size:13px;font-weight:600;max-width:440px;width:100%;color:var(--azul-estado);position:relative}
+  .flujo-nodo.verde{border-color:var(--verde-aps);color:var(--verde-aps);background:#E6F4F1}
+  .flujo-nodo.naranja{border-color:var(--naranja-alerta);color:var(--naranja-alerta);background:#FDF0E6}
+  .flujo-nodo.rojo{border-color:var(--rojo-mal);color:var(--rojo-mal);background:#FEF2F2}
+  .flujo-nodo.amarillo{border-color:var(--amarillo-ges);color:#5A3E00;background:#FDFAED}
+  .flujo-nodo.inicio{background:var(--azul-estado);color:white;border-color:var(--azul-estado)}
+  .flujo-flecha{font-size:20px;color:#8A9AB5;line-height:1;padding:4px 0}
+  .flujo-bifurc{display:grid;grid-template-columns:1fr 1fr;gap:14px;width:100%;max-width:560px}
+  .flujo-bifurc .flujo-nodo{max-width:none;font-size:12px}
+  .puntaje-grid{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0}
+  .puntaje-item{display:flex;align-items:center;gap:10px;background:var(--gris-suave);border:1px solid var(--gris-borde);border-radius:6px;padding:8px 14px;flex:1;min-width:175px}
+  .puntaje-badge{font-family:var(--mono);font-size:13px;font-weight:700;padding:4px 10px;border-radius:4px;white-space:nowrap}
+  .badge-verde{background:#D1FAE5;color:#065F46}
+  .badge-amarillo{background:#FEF3C7;color:#92400E}
+  .badge-rojo{background:#FEE2E2;color:#991B1B}
+  .badge-naranja{background:#FFEDD5;color:#9A3412}
+  .puntaje-label{font-size:12px;color:#4B5563}
+  .efam-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:14px 0}
+  .rol-list{display:flex;flex-direction:column;gap:10px;margin:10px 0}
+  .rol-item{display:flex;gap:12px;align-items:flex-start;padding:12px 16px;background:var(--gris-suave);border-radius:8px;border:1px solid var(--gris-borde);font-size:13.5px}
+  .rol-num{font-family:var(--mono);font-weight:700;color:var(--azul-medio);font-size:14px;min-width:24px}
+  .vacuna-card{border:1px solid var(--gris-borde);border-radius:8px;overflow:hidden;margin-bottom:10px}
+  .vacuna-head{background:var(--azul-estado);color:white;padding:8px 14px;font-size:12px;font-weight:700;letter-spacing:.04em}
+  .vacuna-body{padding:12px 14px;font-size:12.5px;background:white}
+  .vacuna-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin:14px 0}
+  .ges-card{border-left:4px solid var(--amarillo-ges);background:white;border-radius:0 8px 8px 0;padding:12px 16px;margin-bottom:10px;border-top:1px solid var(--gris-borde);border-right:1px solid var(--gris-borde);border-bottom:1px solid var(--gris-borde)}
+  .ges-card h4{margin:0 0 4px;font-size:13px;color:var(--azul-estado)}
+  .ges-card p{font-size:12.5px;margin:0}
+  .fuente{font-size:11px;color:#8A9AB5;font-family:var(--mono);margin-top:10px;padding-top:8px;border-top:1px dashed var(--gris-borde)}
+  .div-sec{height:1px;background:var(--gris-borde);margin:26px 0}
+  .comp-label{display:inline-block;font-family:var(--mono);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;padding:3px 8px;border-radius:3px;margin-bottom:8px}
+  .comp-azul{background:#DBEAFE;color:#1E3A8A}
+  .comp-verde{background:#D1FAE5;color:#064E3B}
+  .comp-naranja{background:#FFEDD5;color:#7C2D12}
+  footer{text-align:center;padding:28px 24px;font-size:12px;color:#8A9AB5;font-family:var(--mono);border-top:1px solid var(--gris-borde);background:white}
+  @media(max-width:600px){
+    .efam-grid,.flujo-bifurc{grid-template-columns:1fr}
+    .card-grid{grid-template-columns:1fr}
+    .seccion-body{padding:18px 14px}
+    .seccion-header{padding:16px 14px}
+    header{position:static}
+  }
+
+  * {
+  box-sizing: border-box;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* TABLET */
+@media (max-width: 1024px) {
+  main,
+  .contenedor,
+  .container,
+  .contenido {
+    width: 92%;
+    max-width: 100%;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.4rem;
+  }
+}
+
+/* TELÉFONO */
+@media (max-width: 768px) {
+  header {
+    padding: 32px 18px;
+    text-align: center;
+  }
+
+  main,
+  .contenedor,
+  .container,
+  .contenido {
+    width: 94%;
+    padding: 20px 0;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+    line-height: 1.2;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+  }
+
+  p,
+  li {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .card,
+  .tarjeta,
+  .bloque,
+  section {
+    width: 100%;
+  }
+
+  .grid,
+  .cards,
+  .contenedor-tarjetas {
+    grid-template-columns: 1fr;
+    flex-direction: column;
+  }
+
+  .btn,
+  .boton,
+  button,
+  a.boton,
+  a.btn {
+    width: 100%;
+    display: block;
+    text-align: center;
+  }
+}
+</style>
+</head>
+<body>
+
+<header>
+  </div>
+  <nav>
+    <a href="#programa-nacional">Programa Nacional</a>
+    <a href="#empam">EMPAM</a>
+    <a href="#efam">EFAM</a>
+    <a href="#instrumentos">Instrumentos</a>
+    <a href="#barthel">Barthel</a>
+    <a href="#funcionalidad">Funcionalidad</a>
+    <a href="#enfermeria">Enfermería</a>
+    <a href="#transversales">PACAM · PNI · GES</a>
+  </nav>
+</header>
+
+<div class="hero">
+  <h2>Programa Nacional de Personas Mayores</h2>
+</div>
+
+<div class="main-wrap">
+
+<!-- ══════════════════════════════════════════
+     1. PROGRAMA NACIONAL
+══════════════════════════════════════════ -->
+<section class="seccion" id="programa-nacional">
+  <div class="seccion-header">
+    <div class="seccion-icon icon-azul">🏛️</div>
+    <div class="seccion-header-text">
+      <h2>Programa Nacional de Personas Mayores</h2>
+      <div class="subtitulo-sec">Contexto y componentes en APS · MINSAL</div>
+    </div>
+  </div>
+  <div class="seccion-body">
+
+    <div class="subseccion">
+      <p>Chile experimenta un acelerado proceso de envejecimiento poblacional. Según datos del INE y MINSAL, las personas de 60 años y más representan cerca del <strong>17%</strong> de la población total (proyecciones al 2024), con tendencia al alza. Este cambio demográfico genera mayor demanda de servicios de salud, con prevalencia creciente de enfermedades crónicas, discapacidad y dependencia.</p>
+      <p>El <strong>Programa Nacional de Personas Mayores</strong> del MINSAL responde a este contexto con un enfoque de salud integral y preventivo, priorizando la mantención de la funcionalidad y autonomía de las personas mayores dentro de la red de APS.</p>
+      <div class="callout callout-azul">
+        <strong>Marco legal y normativo</strong>
+        Sustentado en la Política Nacional del Adulto Mayor (SENAMA), la Ley 19.828 (SENAMA), el Plan Nacional de Salud para Personas Mayores del MINSAL, y el modelo de atención integral de salud familiar y comunitaria.
+      </div>
+    </div>
+
+
+    <div class="subseccion">
+      <h3>Componentes del programa en APS</h3>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-title">🔍 Pesquisa y evaluación</div>
+          <p>EMPAM (Examen de Medicina Preventiva del Adulto Mayor), EFAM y aplicación de instrumentos de valoración funcional.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">💊 Manejo de crónicos</div>
+          <p>Control de HTA, DM2, EPOC y otras patologías prevalentes en el marco del ECICEP y programas de salud cardiovascular.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">🏃 Rehabilitación y actividad</div>
+          <p>Talleres de estimulación cognitiva, ejercicio físico, prevención de caídas, y programa PMASAMA para autovalentes.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">🏠 Atención domiciliaria</div>
+          <p>PADOMI: programa de atención domiciliaria para personas mayores con dependencia severa que no pueden asistir al centro de salud.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">🌱 Promoción y prevención</div>
+          <p>PACAM (alimentación), PNI (vacunas), educación en autocuidado y fomento de envejecimiento activo y saludable.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">👥 Redes y coordinación</div>
+          <p>Articulación con SENAMA, municipios, organizaciones comunitarias y red hospitalaria para respuesta integral.</p>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="subseccion">
+      <h3>Programa Más Adultos Mayores Autovalentes </h3>
+      <p>El PMASAMA es un programa del MINSAL dirigido a personas mayores autovalentes (con o sin riesgo) que busca mantener y potenciar su funcionalidad a través de actividades grupales en APS.</p>
+      <h4>Objetivos</h4>
+      <ul>
+        <li>Mejorar la funcionalidad física, cognitiva y social de las personas mayores autovalentes.</li>
+        <li>Prevenir o retrasar la pérdida de autonomía e independencia.</li>
+        <li>Promover hábitos saludables y participación social activa.</li>
+      </ul>
+      <h4>Actividades del programa</h4>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-title">Talleres de actividad física</div>
+          <p>Ejercicios de fuerza, equilibrio y flexibilidad para prevención de caídas y mantención de capacidad funcional.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">Estimulación cognitiva</div>
+          <p>Talleres de memoria, atención y funciones ejecutivas. Especialmente relevante para adultos mayores autovalentes con riesgo.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">Educación en salud</div>
+          <p>Nutrición, autocuidado, higiene del sueño, uso racional de medicamentos y prevención de enfermedades crónicas.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">Integración social</div>
+          <p>Fomento de redes de apoyo, participación comunitaria y actividades lúdicas que promuevan el bienestar social.</p>
+        </div>
+      </div>
+      <div class="callout callout-verde">
+        <strong>Criterio de ingreso</strong>
+        Ingresan al PMASAMA las personas mayores clasificadas como autovalentes sin riesgo o autovalentes con riesgo según el EFAM, en el marco del EMPAM.
+      </div>
+    </div>
+
+    <div class="div-sec"></div>
+
+    <div class="subseccion">
+      <h3>ECICEP y personas mayores: complementariedad </h3>
+      <p>El <strong>Examen de Control Integral del/la Ciclo de vida de las personas Enfermas con Patologías Crónicas (ECICEP)</strong> es el control de salud destinado a personas con patologías crónicas (HTA, DM2, dislipidemia, entre otras). Reemplaza los anteriores controles separados (PSCV, control de salud mental, etc.).</p>
+      <div class="tabla-wrap">
+        <table>
+          <thead><tr><th>Instrumento</th><th>Población objetivo</th><th>Frecuencia</th><th>Foco principal</th></tr></thead>
+          <tbody>
+            <tr><td><strong>EMPAM</strong></td><td>Personas ≥ 65 años (o ≥ 60 según normativa vigente)</td><td>Anual</td><td>Valoración funcional, pesquisa de síndromes geriátricos, clasificación funcional</td></tr>
+            <tr><td><strong>ECICEP</strong></td><td>Personas con patologías crónicas, de cualquier edad</td><td>Según riesgo cardiovascular (cada 3–6–12 meses)</td><td>Control y seguimiento de patologías crónicas (HTA, DM2, dislipidemia, etc.)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout callout-azul">
+        <strong>Principio clave</strong>
+        El ECICEP no reemplaza al EMPAM en personas mayores. Son complementarios: el EMPAM evalúa funcionalidad y riesgo de deterioro, el ECICEP controla las patologías crónicas de base.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     2. EMPAM
+══════════════════════════════════════════ -->
+<section class="seccion" id="empam">
+  <div class="seccion-header">
+    <div class="seccion-icon icon-verde">📋</div>
+    <div class="seccion-header-text">
+      <h2>EMPAM: Examen de Medicina Preventiva del Adulto Mayor</h2>
+      <div class="subtitulo-sec">Objetivos · Beneficiarios · Componentes</div>
+    </div>
+  </div>
+  <div class="seccion-body">
+
+    <div class="subseccion">
+      <h3>Objetivos</h3>
+      <ul>
+        <li>Evaluar integralmente el estado de salud de las personas mayores mediante un examen preventivo estandarizado.</li>
+        <li>Identificar precozmente factores de riesgo, deterioro funcional, síndromes geriátricos y condiciones de salud no diagnosticadas.</li>
+        <li>Clasificar la funcionalidad de las personas mayores para orientar su ingreso a programas y redes de apoyo.</li>
+        <li>Promover el envejecimiento activo y saludable mediante educación e intervenciones preventivas.</li>
+        <li>Articular la atención de la persona mayor en la red de salud según su nivel de dependencia.</li>
+      </ul>
+    </div>
+
+    <div class="div-sec"></div>
+
+    <div class="subseccion">
+      <h3>Beneficiarios</h3>
+      <div class="callout callout-verde">
+        <strong>Población objetivo</strong>
+        Personas de 65 años y más beneficiarias del sistema público de salud (FONASA), inscritas en el CESFAM correspondiente. En algunas normativas se incluye desde los 60 años. Se realiza una vez al año.
+      </div>
+      <p>Tienen prioridad las personas mayores que no han sido evaluadas en el último año y aquellas con factores de riesgo de deterioro funcional.</p>
+    </div>
+
+    <div class="subseccion">
+      <h3>Profesionales que lo realizan</h3>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-title">👩‍⚕️ Enfermera/o</div>
+          <p>Aplica la mayoría de los subcomponentes del EMPAM, incluyendo el EFAM y los instrumentos de valoración geriátrica. Rol central y coordinador.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">👨‍⚕️ Médico/a</div>
+          <p>Examen físico, evaluación de patologías, prescripción de exámenes de laboratorio e indicaciones terapéuticas.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">🦷 Odontólogo/a</div>
+          <p>Examen de salud bucal: evaluación de piezas dentarias, prótesis, mucosa oral y riesgo de disfagia.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">🧪 Tens / paramédico</div>
+          <p>Toma de exámenes de laboratorio, medidas antropométricas (peso, talla, IMC, PA), apoyo en procedimientos.</p>
+        </div>
+      </div>
+      <div class="callout callout-azul">
+        <strong>Nota importante</strong>
+        La enfermera/o es el profesional principal en la aplicación del EMPAM en APS. Es quien aplica el EFAM, los instrumentos de valoración geriátrica y coordina la atención integral del adulto mayor.
+      </div>
+    </div>
+
+    <div class="div-sec"></div>
+
+    <div class="subseccion">
+      <h3><span class="tag">Estructura</span>Componentes y subcomponentes del EMPAM </h3>
+      <div class="tabla-wrap">
+        <table>
+          <thead><tr><th>Componente</th><th>Subcomponente / Instrumento</th><th>Profesional principal</th></tr></thead>
+          <tbody>
+            <tr>
+              <td rowspan="3"><strong>1. Anamnesis y antecedentes</strong></td>
+              <td>Motivo de consulta, antecedentes mórbidos, medicamentos (polifarmacia)</td>
+              <td>Médico/Enfermera</td>
+            </tr>
+            <tr>
+              <td>Antecedentes familiares relevantes</td>
+              <td>Médico/Enfermera</td>
+            </tr>
+            <tr>
+              <td>Hábitos: tabaco, alcohol, actividad física, alimentación</td>
+              <td>Enfermera</td>
+            </tr>
+            <tr>
+              <td rowspan="2"><strong>2. Examen físico</strong></td>
+              <td>Signos vitales, PA, frecuencia cardíaca, temperatura</td>
+              <td>TENS/Enfermera</td>
+            </tr>
+            <tr>
+              <td>Antropometría: peso, talla, IMC, circunferencia de cintura</td>
+              <td>TENS/Enfermera</td>
+            </tr>
+            <tr>
+              <td><strong>3. Examen de salud bucal</strong></td>
+              <td>Estado dentario, prótesis, mucosa oral, riesgo de disfagia</td>
+              <td>Odontólogo</td>
+            </tr>
+            <tr>
+              <td rowspan="5"><strong>4. Evaluación funcional (EFAM)</strong></td>
+              <td>EFAM Parte A: Evaluación funcional (MMSE abreviado, test de equilibrio, etc.)</td>
+              <td>Enfermera</td>
+            </tr>
+            <tr>
+              <td>EFAM Parte B: Instrumentos complementarios</td>
+              <td>Enfermera</td>
+            </tr>
+            <tr>
+              <td>Escala de Yesavage (depresión geriátrica)</td>
+              <td>Enfermera</td>
+            </tr>
+            <tr>
+              <td>Valoración del riesgo de caídas</td>
+              <td>Enfermera</td>
+            </tr>
+            <tr>
+              <td>Sospecha de maltrato al adulto mayor</td>
+              <td>Enfermera</td>
+            </tr>
+            <tr>
+              <td><strong>5. Exámenes de laboratorio</strong></td>
+              <td>Glicemia, perfil lipídico, creatinina, orina completa, TSH según indicación</td>
+              <td>Médico / TENS</td>
+            </tr>
+            <tr>
+              <td><strong>6. Clasificación de funcionalidad</strong></td>
+              <td>Autovalente sin riesgo / con riesgo / En riesgo de dependencia / Dependiente leve-moderado-severo</td>
+              <td>Enfermera / Médico</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     3. EFAM
+══════════════════════════════════════════ -->
+<section class="seccion" id="efam">
+  <div class="seccion-header">
+    <div class="seccion-icon icon-naranja">📊</div>
+    <div class="seccion-header-text">
+      <h2>Subcomponente: Examen Funcional del Adulto Mayor (EFAM)</h2>
+      <div class="subtitulo-sec">Estructura · Flujo · Parte A y Parte B</div>
+    </div>
+  </div>
+  <div class="seccion-body">
+
+    <div class="subseccion">
+      <p>El <strong>EFAM (Examen Funcional del Adulto Mayor)</strong> es el instrumento central del EMPAM para evaluar la funcionalidad de las personas mayores en APS. Permite identificar su grado de autonomía, detectar deterioro funcional y clasificarla para orientar su atención.</p>
+      <p>Fue desarrollado y validado en Chile por el MINSAL, con base en estudios de la realidad epidemiológica nacional.</p>
+      <div class="efam-grid">
+        <div class="card">
+          <div class="card-title">EFAM Parte A</div>
+          <p>Evaluación de funcionalidad general: actividades de vida diaria, estado mental (MMSE abreviado), equilibrio/marcha y otras funciones.</p>
+          <p><strong>Puntaje máximo: 100 puntos</strong></p>
+        </div>
+        <div class="card">
+          <div class="card-title">EFAM Parte B</div>
+          <p>Instrumentos complementarios aplicados <strong>solo si el puntaje de la Parte A es ≥ 43 puntos</strong> (autovalente). Evalúa funciones más específicas: visión, audición, continencia, etc.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="div-sec"></div>
+
+    <div class="subseccion">
+      <h3><span class="tag">Flujograma</span>Flujo de aplicación del EFAM </h3>
+      <div class="flujo">
+        <div class="flujo-nodo inicio">Aplicar EFAM Parte A<br><small style="font-weight:400;font-size:11px">(Evaluación funcional completa)</small></div>
+        <div class="flujo-flecha">↓</div>
+        <div class="flujo-nodo">¿Puntaje Parte A?</div>
+        <div class="flujo-flecha">↓</div>
+        <div class="flujo-bifurc">
+          <div>
+            <div class="flujo-nodo rojo">Puntaje &lt; 43 puntos<br><small style="font-weight:400;font-size:11px">No se aplica Parte B</small></div>
+            <div class="flujo-flecha">↓</div>
+            <div class="flujo-nodo rojo">Dependiente o en riesgo<br><small style="font-weight:400;font-size:11px">Derivar según protocolo</small></div>
+          </div>
+          <div>
+            <div class="flujo-nodo verde">Puntaje ≥ 43 puntos<br><small style="font-weight:400;font-size:11px">Continuar con Parte B</small></div>
+            <div class="flujo-flecha">↓</div>
+            <div class="flujo-nodo verde">Aplicar EFAM Parte B<br><small style="font-weight:400;font-size:11px">(Instrumentos complementarios)</small></div>
+          </div>
+        </div>
+        <div class="flujo-flecha">↓</div>
+        <div class="flujo-nodo">Clasificación de funcionalidad</div>
+        <div class="flujo-flecha">↓</div>
+        <div class="flujo-nodo inicio">Ingreso a programa según clasificación</div>
+      </div>
+    </div>
+
+    <div class="div-sec"></div>
+
+    <div class="subseccion">
+      <h3><span class="tag">Parte A</span>EFAM: Evaluación funcional </h3>
+      <p>La Parte A evalúa diferentes dominios de la funcionalidad. Su puntaje máximo es <strong>100 puntos</strong>. El punto de corte para autovalencia es <strong>≥ 43 puntos</strong>.</p>
+      <h4>Dominios evaluados en Parte A</h4>
+      <div class="tabla-wrap">
+        <table>
+          <thead><tr><th>Dominio</th><th>Instrumento / Actividad</th><th>Puntaje máximo</th></tr></thead>
+          <tbody>
+            <tr><td>Función mental (cognitiva)</td><td>MMSE abreviado (Mini Mental State Examination)</td><td>19 puntos</td></tr>
+            <tr><td>Actividades del hogar / AIVD</td><td>Preparación de alimentos, uso de medios de transporte, manejo de dinero, uso del teléfono, toma de medicamentos</td><td>25 puntos</td></tr>
+            <tr><td>Equilibrio y marcha</td><td>Test de Tinetti o similar (marcha, equilibrio estático y dinámico)</td><td>30 puntos</td></tr>
+            <tr><td>Función de extremidades superiores</td><td>Prueba de agarre, escritura, botones</td><td>12 puntos</td></tr>
+            <tr><td>Función de extremidades inferiores</td><td>Prueba de levantarse de silla</td><td>14 puntos</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="puntaje-grid">
+        <div class="puntaje-item">
+          <span class="puntaje-badge badge-verde">≥ 43</span>
+          <span class="puntaje-label">Autovalente (continúa a Parte B)</span>
+        </div>
+        <div class="puntaje-item">
+          <span class="puntaje-badge badge-rojo">&lt; 43</span>
+          <span class="puntaje-label">En riesgo de dependencia o dependiente</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="div-sec"></div>
+
+    <div class="subseccion">
+      <h3><span class="tag">Evaluación cognitiva</span>MMSE Abreviado: Aplicación y puntaje </h3>
+      <p>El <strong>Mini Mental State Examination (MMSE) abreviado</strong> es la versión reducida del test de Folstein, incluida en el EFAM para tamizaje cognitivo rápido en APS.</p>
+      <h4>Dominios evaluados</h4>
+      <div class="tabla-wrap">
+        <table>
+          <thead><tr><th>Dominio</th><th>Ítems típicos</th><th>Puntaje</th></tr></thead>
+          <tbody>
+            <tr><td>Orientación temporal</td><td>¿Qué día es hoy? ¿Mes? ¿Año? ¿Estación del año?</td><td>4 pts</td></tr>
+            <tr><td>Orientación espacial</td><td>¿Dónde estamos? (país, ciudad, establecimiento)</td><td>3 pts</td></tr>
+            <tr><td>Memoria de fijación</td><td>Recordar 3 palabras dictadas (ej: árbol, mesa, avión)</td><td>3 pts</td></tr>
+            <tr><td>Atención y cálculo</td><td>Restar 7 desde 100 (o deletrear "MUNDO" al revés)</td><td>5 pts</td></tr>
+            <tr><td>Memoria de evocación</td><td>Repetir las 3 palabras anteriores</td><td>3 pts</td></tr>
+            <tr><td>Lenguaje / praxis</td><td>Nombrar objetos, repetir frase, copiar figura</td><td>1–2 pts</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h4>Interpretación del MMSE abreviado (dentro de EFAM)</h4>
+      <div class="puntaje-grid">
+        <div class="puntaje-item">
+          <span class="puntaje-badge badge-verde">Sin deterioro</span>
+          <span class="puntaje-label">Puntaje normal según escolaridad</span>
+        </div>
+        <div class="puntaje-item">
+          <span class="puntaje-badge badge-amarillo">Deterioro leve</span>
+          <span class="puntaje-label">Sospecha: referir a evaluación extendida</span>
+        </div>
+        <div class="puntaje-item">
+          <span class="puntaje-badge badge-rojo">Deterioro significativo</span>
+          <span class="puntaje-label">Derivar a médico / especialista</span>
+        </div>
+      </div>
+      <div class="callout callout-naranja">
+        <strong>Corrección por escolaridad</strong>
+        El puntaje de corte del MMSE debe ajustarse según el nivel educacional de la persona. En el contexto chileno se aplica la corrección validada por MINSAL (puntos de corte diferenciados según años de escolaridad).
+      </div>
+    </div>
+
+    <div class="div-sec"></div>
+
+    <div class="subseccion">
+      <h3><span class="tag">Evaluación cognitiva avanzada</span>Test MoCA: Montreal Cognitive Assessment </h3>
+      <p>El <strong>MoCA (Montreal Cognitive Assessment)</strong> es un instrumento de evaluación cognitiva más sensible que el MMSE para detectar deterioro cognitivo leve (DCL). En APS se usa como herramienta complementaria o de segunda línea.</p>
+      <h4>Características</h4>
+      <ul>
+        <li>Evalúa: atención, concentración, funciones ejecutivas, memoria, lenguaje, habilidades visuoconstructivas, abstracción, cálculo y orientación.</li>
+        <li>Puntaje máximo: <strong>30 puntos</strong></li>
+        <li>Punto de corte: <strong>&lt; 26 puntos</strong> = sospecha de deterioro cognitivo (se agrega 1 punto si escolaridad ≤ 12 años).</li>
+        <li>Duración aproximada: 10–15 minutos.</li>
+        <li>Mayor sensibilidad que el MMSE para DCL, especialmente en personas con alta escolaridad.</li>
+      </ul>
+      <div class="puntaje-grid">
+        <div class="puntaje-item">
+          <span class="puntaje-badge badge-verde">26–30</span>
+          <span class="puntaje-label">Normal (sin deterioro)</span>
+        </div>
+        <div class="puntaje-item">
+          <span class="puntaje-badge badge-amarillo">18–25</span>
+          <span class="puntaje-label">Deterioro cognitivo leve</span>
+        </div>
+        <div class="puntaje-item">
+          <span class="puntaje-badge badge-naranja">10–17</span>
+          <span class="puntaje-label">Deterioro cognitivo moderado</span>
+        </div>
+        <div class="puntaje-item">
+          <span class="puntaje-badge badge-rojo">&lt; 10</span>
+          <span class="puntaje-label">Deterioro cognitivo severo</span>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="subseccion">
+      <h3>Minimental extendido (Folstein) y Cuestionario de Pfeffer </h3>
+      <h4>MMSE extendido de Folstein</h4>
+      <p>El MMSE original de Folstein et al. (1975) es la versión completa con <strong>30 ítems</strong> y puntaje máximo de <strong>30 puntos</strong>. Evalúa orientación, registro, atención, cálculo, evocación, lenguaje y praxis constructiva.</p>
+      <div class="puntaje-grid">
+        <div class="puntaje-item"><span class="puntaje-badge badge-verde">27–30</span><span class="puntaje-label">Normal</span></div>
+        <div class="puntaje-item"><span class="puntaje-badge badge-amarillo">21–26</span><span class="puntaje-label">Deterioro leve</span></div>
+        <div class="puntaje-item"><span class="puntaje-badge badge-naranja">11–20</span><span class="puntaje-label">Deterioro moderado</span></div>
+        <div class="puntaje-item"><span class="puntaje-badge badge-rojo">≤ 10</span><span class="puntaje-label">Deterioro severo</span></div>
+      </div>
+      <div class="callout callout-azul">
+        <strong>Corrección por escolaridad (Chile)</strong>
+        Se agregan puntos al puntaje obtenido según escolaridad: analfabetos (+3), básica incompleta (+2), básica completa/media incompleta (+1), media completa o más (+0). Existen tablas validadas para la población chilena.
+      </div>
+      <h4>Cuestionario de Pfeffer (FAQ)</h4>
+      <p>El <strong>Functional Activities Questionnaire (FAQ) de Pfeffer</strong> evalúa la funcionalidad del adulto mayor en actividades instrumentales de vida diaria (AIVD), preferiblemente a través de un informante (cuidador, familiar).</p>
+      <ul>
+        <li>Consta de <strong>10 ítems</strong> sobre actividades cotidianas (manejar dinero, hacer compras, preparar comidas, usar electrodomésticos, etc.).</li>
+        <li>Cada ítem se puntúa de 0 (normal) a 3 (dependiente).</li>
+        <li>Puntaje máximo: <strong>30 puntos</strong>.</li>
+        <li>Punto de corte: <strong>≥ 6 puntos</strong> = alteración funcional significativa compatible con demencia.</li>
+        <li>Útil especialmente cuando la persona no puede ser evaluada directamente o presenta síntomas iniciales de demencia.</li>
+      </ul>
+    </div>
+
+    <div class="div-sec"></div>
+
+    <div class="subseccion">
+      <h3><span class="tag">Parte B</span>EFAM: Instrumentos complementarios </h3>
+      <p>Se aplica <strong>solo si Parte A ≥ 43 puntos</strong> (persona autovalente). Evalúa funciones específicas que pueden condicionar la calidad de vida y el riesgo de deterioro.</p>
+      <div class="tabla-wrap">
+        <table>
+          <thead><tr><th>Instrumento</th><th>Qué evalúa</th><th>Punto de corte / resultado</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Agudeza visual</strong></td><td>Visión con tabla de Snellen o similar</td><td>Déficit visual: derivar a oftalmología</td></tr>
+            <tr><td><strong>Agudeza auditiva</strong></td><td>Prueba del susurro o voz normal a distancia estándar</td><td>Déficit auditivo: derivar o referir a ORL</td></tr>
+            <tr><td><strong>Continencia urinaria</strong></td><td>Presencia de incontinencia urinaria</td><td>Sí/No: si afirmativo, evaluar e intervenir</td></tr>
+            <tr><td><strong>Índice de Masa Corporal (IMC)</strong></td><td>Estado nutricional (bajo peso, normopeso, sobrepeso, obesidad)</td><td>Derivar a nutricionista según resultado</td></tr>
+            <tr><td><strong>Glicemia capilar</strong></td><td>Screening de diabetes o hiperglicemia</td><td>Glicemia ≥ 100 mg/dL en ayunas: evaluar</td></tr>
+            <tr><td><strong>Presión arterial</strong></td><td>Hipertensión arterial</td><td>PA ≥ 140/90: seguimiento o tratamiento</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     4. INSTRUMENTOS DE VALORACIÓN GERIÁTRICA
+══════════════════════════════════════════ -->
+<section class="seccion" id="instrumentos">
+  <div class="seccion-header">
+    <div class="seccion-icon icon-amarillo">🧭</div>
+    <div class="seccion-header-text">
+      <h2>Instrumentos de Valoración Geriátrica</h2>
+      <div class="subtitulo-sec">Yesavage · Caídas · Maltrato</div>
+    </div>
+  </div>
+  <div class="seccion-body">
+
+    <div class="subseccion">
+      <h3>Escala de Yesavage: Evaluación geriátrica de depresión</h3>
+      <p>La <strong>Escala de Depresión Geriátrica de Yesavage (GDS - Geriatric Depression Scale)</strong> es el instrumento validado para la detección de depresión en personas mayores en el contexto del EMPAM.</p>
+      <h4>Versión abreviada (GDS-15): Utilizada en APS</h4>
+      <p>Consta de <strong>15 preguntas</strong> de respuesta sí/no, referidas al estado de ánimo en la última semana.</p>
+      <div class="tabla-wrap">
+        <table>
+          <thead><tr><th>Puntaje</th><th>Interpretación</th><th>Conducta</th></tr></thead>
+          <tbody>
+            <tr><td><strong>0–5</strong></td><td>Normal, sin depresión</td><td>Continuar control habitual</td></tr>
+            <tr><td><strong>6–9</strong></td><td>Depresión leve</td><td>Intervención en APS, reevaluar</td></tr>
+            <tr><td><strong>10–15</strong></td><td>Depresión establecida / severa</td><td>Derivación a médico / salud mental</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h4>Versión de 30 ítems (GDS-30)</h4>
+      <p>Versión original de mayor sensibilidad, usada en contextos de investigación o evaluación más completa. El punto de corte es <strong>≥ 11 puntos</strong> para depresión. En APS se prefiere la versión GDS-15 por practicidad.</p>
+      <div class="callout callout-verde">
+        <strong>Importancia clínica</strong>
+        La depresión es frecuentemente subdiagnosticada en personas mayores. El uso de la GDS en el EMPAM permite una detección sistemática y oportuna, mejorando el pronóstico funcional y la calidad de vida.
+      </div>
+    </div>
+
+    <div class="div-sec"></div>
+
+    <div class="subseccion">
+      <h3>Valoración del riesgo de caídas</h3>
+      <p>Las caídas son uno de los principales problemas de salud en personas mayores, causando lesiones, hospitalizaciones y deterioro funcional. El EMPAM incluye la valoración sistemática del riesgo.</p>
+      <h4>Instrumentos utilizados</h4>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-title">Test de Tinetti</div>
+          <p>Evalúa marcha y equilibrio mediante observación directa. Puntaje máximo: 28 puntos. <strong>&lt; 19 pts</strong> = alto riesgo de caída.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">Test "Levántate y Camina" (Timed Up and Go)</div>
+          <p>Tiempo en levantarse de silla, caminar 3 metros, volver y sentarse. <strong>≥ 20 segundos</strong> = alto riesgo de caída.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">Antecedente de caídas previas</div>
+          <p><strong>≥ 2 caídas en el último año</strong> o 1 caída con lesión es factor de riesgo mayor. Anamnesis dirigida obligatoria.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">Evaluación de factores de riesgo</div>
+          <p>Polifarmacia (≥ 5 medicamentos), hipotensión ortostática, déficit visual, calzado inadecuado, barreras ambientales.</p>
+        </div>
+      </div>
+      <h4>Intervenciones según riesgo</h4>
+      <ul>
+        <li><strong>Riesgo bajo:</strong> Educación en prevención de caídas, consejería sobre entorno seguro.</li>
+        <li><strong>Riesgo moderado:</strong> Derivar a programa de ejercicio (PMASAMA), evaluar medicamentos, modificación de entorno.</li>
+        <li><strong>Riesgo alto:</strong> Derivación a médico, evaluación integral, posible derivación a kinesiólogo o especialista.</li>
+      </ul>
+    </div>
+
+    <div class="div-sec"></div>
+
+    <div class="subseccion">
+      <h3>Sospecha de maltrato en el adulto mayor </h3>
+      <p>El <strong>maltrato al adulto mayor</strong> es una violación de derechos humanos y un problema de salud pública. El EMPAM incluye la pesquisa activa de indicadores de maltrato.</p>
+      <h4>Tipos de maltrato</h4>
+      <div class="card-grid">
+        <div class="card"><div class="card-title">Físico</div><p>Golpes, quemaduras, restricción física, marcas inexplicadas.</p></div>
+        <div class="card"><div class="card-title">Psicológico / emocional</div><p>Insultos, amenazas, humillación, aislamiento, infantilización.</p></div>
+        <div class="card"><div class="card-title">Económico / patrimonial</div><p>Uso no autorizado de dinero, bienes o propiedades de la persona mayor.</p></div>
+        <div class="card"><div class="card-title">Sexual</div><p>Cualquier acto sexual sin consentimiento.</p></div>
+        <div class="card"><div class="card-title">Negligencia</div><p>Descuido en higiene, alimentación, medicamentos, por parte del cuidador.</p></div>
+        <div class="card"><div class="card-title">Abandono</div><p>Deserción de la responsabilidad de cuidado por quien la tenía.</p></div>
+      </div>
+      <h4>Indicadores de alerta en el EMPAM</h4>
+      <ul>
+        <li>Lesiones físicas inexplicadas o inconsistentes con el relato.</li>
+        <li>Persona mayor temerosa, ansiosa o que no habla libremente en presencia del acompañante.</li>
+        <li>Acompañante que responde por la persona mayor o no permite la entrevista a solas.</li>
+        <li>Desnutrición, deshidratación o higiene deficiente sin causa médica evidente.</li>
+        <li>Polifarmacia o medicación sin registro claro.</li>
+        <li>Consultas reiteradas por "accidentes" o caídas.</li>
+      </ul>
+      <h4>Instrumento de pesquisa</h4>
+      <p>Se utiliza el <strong>Cuestionario de Detección de Maltrato</strong> del MINSAL (preguntas directas y observación clínica). Ante sospecha, el profesional debe:</p>
+      <ol>
+        <li>Entrevistar a la persona mayor a solas.</li>
+        <li>Registrar los hallazgos en la ficha clínica.</li>
+        <li>Derivar al médico y al asistente social del CESFAM.</li>
+        <li>Notificar según normativa vigente (Ministerio de Justicia, SENAMA, si corresponde).</li>
+      </ol>
+      <div class="callout callout-naranja">
+        <strong>Obligación legal</strong>
+        Los profesionales de salud tienen la obligación ético-legal de detectar, registrar y derivar los casos de sospecha de maltrato al adulto mayor. La omisión puede constituir una falta grave.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     5. BARTHEL
+══════════════════════════════════════════ -->
+<section class="seccion" id="barthel">
+  <div class="seccion-header">
+    <div class="seccion-icon icon-azul">📏</div>
+    <div class="seccion-header-text">
+      <h2>Índice de Barthel: Evaluación detallada de dependencia</h2>
+      <div class="subtitulo-sec">Actividades básicas de vida diaria · ABVD</div>
+    </div>
+  </div>
+  <div class="seccion-body">
+   
+    <div class="subseccion">
+      <p>El <strong>Índice de Barthel</strong> es el instrumento de referencia para evaluar la capacidad de una persona para realizar de forma independiente las <strong>actividades básicas de vida diaria (ABVD)</strong>. Es ampliamente utilizado en geriatría y APS para medir el grado de dependencia funcional.</p>
+      <h4>Características del instrumento</h4>
+      <ul>
+        <li>Evalúa <strong>10 actividades básicas</strong> de autocuidado y movilidad.</li>
+        <li>Puntaje total: <strong>0 a 100 puntos</strong> (0 = dependencia total; 100 = independencia total).</li>
+        <li>Sencillo de aplicar: puede ser completado por el profesional, la persona o un informante.</li>
+        <li>Validado y reproducible; ampliamente utilizado a nivel internacional y en Chile.</li>
+      </ul>
+    </div>
+
+
+    <div class="subseccion">
+      <h3>Actividades evaluadas y puntajes </h3>
+      <div class="tabla-wrap">
+        <table>
+          <thead><tr><th>Actividad</th><th>Independiente</th><th>Ayuda parcial</th><th>Dependiente</th></tr></thead>
+          <tbody>
+            <tr><td>Alimentación</td><td>10</td><td>5</td><td>0</td></tr>
+            <tr><td>Baño / ducha</td><td>5</td><td>—</td><td>0</td></tr>
+            <tr><td>Aseo personal (lavado de cara, dientes)</td><td>5</td><td>—</td><td>0</td></tr>
+            <tr><td>Vestirse / desvestirse</td><td>10</td><td>5</td><td>0</td></tr>
+            <tr><td>Deposición (continencia fecal)</td><td>10</td><td>5</td><td>0</td></tr>
+            <tr><td>Micción (continencia urinaria)</td><td>10</td><td>5</td><td>0</td></tr>
+            <tr><td>Uso del WC / baño</td><td>10</td><td>5</td><td>0</td></tr>
+            <tr><td>Traslado silla–cama</td><td>15</td><td>5–10</td><td>0</td></tr>
+            <tr><td>Deambulación</td><td>15</td><td>10</td><td>0</td></tr>
+            <tr><td>Escaleras</td><td>10</td><td>5</td><td>0</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="puntaje-grid">
+        <div class="puntaje-item"><span class="puntaje-badge badge-verde">91–100</span><span class="puntaje-label">Independiente</span></div>
+        <div class="puntaje-item"><span class="puntaje-badge badge-verde">61–90</span><span class="puntaje-label">Dependencia leve</span></div>
+        <div class="puntaje-item"><span class="puntaje-badge badge-amarillo">41–60</span><span class="puntaje-label">Dependencia moderada</span></div>
+        <div class="puntaje-item"><span class="puntaje-badge badge-naranja">21–40</span><span class="puntaje-label">Dependencia severa</span></div>
+        <div class="puntaje-item"><span class="puntaje-badge badge-rojo">0–20</span><span class="puntaje-label">Dependencia total</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     6. CLASIFICACIÓN FUNCIONALIDAD
+══════════════════════════════════════════ -->
+<section class="seccion" id="funcionalidad">
+  <div class="seccion-header">
+    <div class="seccion-icon icon-verde">🔀</div>
+    <div class="seccion-header-text">
+      <h2>Clasificación de Funcionalidad y Flujograma de Atención</h2>
+      <div class="subtitulo-sec">Categorías funcionales · Atención según dependencia</div>
+    </div>
+  </div>
+  <div class="seccion-body">
+
+    <div class="subseccion">
+      <h3>Clasificación de funcionalidad según EFAM/EMPAM</h3>
+      <div class="tabla-wrap">
+        <table>
+          <thead><tr><th>Categoría</th><th>Criterio EFAM</th><th>Barthel (referencial)</th><th>Programa / Destino</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>Autovalente sin riesgo</strong></td>
+              <td>EFAM Parte A ≥ 43 pts <br>Parte B sin déficit significativo</td>
+              <td>91–100</td>
+              <td>PMASAMA · Controles periódicos · EMPAM anual</td>
+            </tr>
+            <tr>
+              <td><strong>Autovalente con riesgo</strong></td>
+              <td>EFAM Parte A ≥ 43 pts <br>Parte B con ≥ 1 déficit</td>
+              <td>61–90</td>
+              <td>PMASAMA · Intervención específica por área de riesgo · Reevaluación más frecuente</td>
+            </tr>
+            <tr>
+              <td><strong>En riesgo de dependencia</strong></td>
+              <td>EFAM Parte A 43–55 pts (zona limítrofe con déficits)</td>
+              <td>41–60</td>
+              <td>Intervención preventiva · Rehabilitación · Atención médica · No ingresa a PMASAMA</td>
+            </tr>
+            <tr>
+              <td><strong>Dependiente leve</strong></td>
+              <td>EFAM Parte A &lt; 43 pts</td>
+              <td>61–90</td>
+              <td>Rehabilitación en APS · Apoyo al cuidador · Evaluación médica</td>
+            </tr>
+            <tr>
+              <td><strong>Dependiente moderado</strong></td>
+              <td>EFAM Parte A &lt; 43 pts + Barthel</td>
+              <td>41–60</td>
+              <td>PADOMI (si no puede ir al centro) · Rehabilitación · Trabajo social</td>
+            </tr>
+            <tr>
+              <td><strong>Dependiente severo</strong></td>
+              <td>EFAM Parte A &lt; 43 pts + Barthel</td>
+              <td>0–40</td>
+              <td>PADOMI · Cuidados paliativos · Gestión de caso · Apoyo al cuidador</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="div-sec"></div>
+
+    <div class="subseccion">
+      <h3><span class="tag">Flujograma</span> Atención según funcionalidad </h3>
+      <div class="flujo">
+        <div class="flujo-nodo inicio">Persona mayor asiste al CESFAM<br><small style="font-weight:400;font-size:11px">Solicitud de EMPAM / control</small></div>
+        <div class="flujo-flecha">↓</div>
+        <div class="flujo-nodo">Aplicación EMPAM completo<br><small style="font-weight:400;font-size:11px">Anamnesis · Examen físico · EFAM · Laboratorio</small></div>
+        <div class="flujo-flecha">↓</div>
+        <div class="flujo-nodo">Clasificación por EFAM + Barthel</div>
+        <div class="flujo-flecha">↓</div>
+        <div class="flujo-bifurc">
+          <div>
+            <div class="flujo-nodo verde">AUTOVALENTE<br>(sin riesgo / con riesgo)<br><small style="font-weight:400;font-size:11px">EFAM ≥ 43 pts</small></div>
+            <div class="flujo-flecha">↓</div>
+            <div class="flujo-nodo verde">PMASAMA<br>Talleres grupales<br>EMPAM anual</div>
+          </div>
+          <div>
+            <div class="flujo-nodo rojo">DEPENDIENTE<br>(leve / moderado / severo)<br><small style="font-weight:400;font-size:11px">EFAM &lt; 43 pts</small></div>
+            <div class="flujo-flecha">↓</div>
+            <div class="flujo-nodo rojo">PADOMI / Evaluación médica<br>Rehabilitación / Trabajo social<br>Apoyo al cuidador</div>
+          </div>
+        </div>
+        <div class="flujo-flecha">↓</div>
+        <div class="flujo-nodo amarillo">Evaluación de síndromes geriátricos<br><small style="font-weight:400;font-size:11px">Depresión · Caídas · Maltrato · Polifarmacia · Deterioro cognitivo</small></div>
+        <div class="flujo-flecha">↓</div>
+        <div class="flujo-nodo inicio">Derivación a especialidad si corresponde<br><small style="font-weight:400;font-size:11px">Neurología · Psiquiatría · Geriatría · ORL · Oftalmología · Nutrición</small></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     7. ROL ENFERMERÍA
+══════════════════════════════════════════ -->
+<section class="seccion" id="enfermeria">
+  <div class="seccion-header">
+    <div class="seccion-icon icon-verde">👩‍⚕️</div>
+    <div class="seccion-header-text">
+      <h2>Rol de Enfermería en el EMPAM</h2>
+      <div class="subtitulo-sec">Competencias · Funciones · Responsabilidades</div>
+    </div>
+  </div>
+  <div class="seccion-body">
+
+    <div class="subseccion">
+      <h3>Funciones principales de enfermería en el EMPAM</h3>
+      <div class="rol-list">
+        <div class="rol-item"><span class="rol-num">01</span><div><strong>Aplicación del EFAM completo (Parte A y B):</strong> La enfermera/o es el profesional responsable de aplicar el examen funcional del adulto mayor, incluyendo MMSE abreviado, test de equilibrio y marcha, evaluación de AIVD y los instrumentos complementarios de la Parte B.</div></div>
+        <div class="rol-item"><span class="rol-num">02</span><div><strong>Aplicación de instrumentos de valoración geriátrica:</strong> Aplica la Escala de Yesavage (depresión), la valoración del riesgo de caídas (Tinetti / TUG) y el cuestionario de sospecha de maltrato al adulto mayor.</div></div>
+        <div class="rol-item"><span class="rol-num">03</span><div><strong>Anamnesis dirigida:</strong> Recoge antecedentes de salud, medicamentos actuales (polifarmacia), hábitos de vida (tabaco, alcohol, actividad física, alimentación), red de apoyo social y condiciones de vivienda.</div></div>
+        <div class="rol-item"><span class="rol-num">04</span><div><strong>Clasificación funcional:</strong> En base a los resultados del EFAM y valoración geriátrica, clasifica a la persona mayor en la categoría funcional correspondiente y determina el programa o nivel de atención al que debe derivarse.</div></div>
+        <div class="rol-item"><span class="rol-num">05</span><div><strong>Educación en salud:</strong> Realiza educación en autocuidado, prevención de caídas, higiene, alimentación saludable, adherencia a medicamentos y uso adecuado de los servicios de salud.</div></div>
+        <div class="rol-item"><span class="rol-num">06</span><div><strong>Coordinación y derivación:</strong> Gestiona las derivaciones al médico, odontólogo, nutricionista, kinesiólogo, asistente social y especialidades de la red según los hallazgos del EMPAM.</div></div>
+        <div class="rol-item"><span class="rol-num">07</span><div><strong>Registro clínico:</strong> Registra todos los hallazgos, instrumentos aplicados, clasificación funcional y plan de cuidados en la ficha clínica del usuario, cumpliendo con los estándares de calidad del MINSAL.</div></div>
+        <div class="rol-item"><span class="rol-num">08</span><div><strong>Seguimiento y control:</strong> Realiza seguimiento de las personas mayores según su clasificación, convoca a controles periódicos y verifica adherencia a intervenciones y programas asignados.</div></div>
+        <div class="rol-item"><span class="rol-num">09</span><div><strong>Pesquisa activa:</strong> Identifica personas mayores de la población a cargo que no han sido evaluadas en el año en curso y las cita activamente al EMPAM.</div></div>
+        <div class="rol-item"><span class="rol-num">10</span><div><strong>Trabajo en equipo:</strong> Coordina con el equipo multidisciplinario (médico, TENS, odontólogo, asistente social, kinesiólogo) para una atención integral y centrada en la persona mayor.</div></div>
+      </div>
+      <div class="callout callout-verde">
+        <strong>Rol central de enfermería</strong>
+        La enfermera/o es el eje coordinador del EMPAM en APS. Su labor trasciende la aplicación de instrumentos: lidera la valoración integral, la clasificación funcional y la gestión del cuidado de las personas mayores en su territorio.
+      </div>
+      <div class="fuente">Fuente: MINSAL — Orientaciones técnicas para enfermería en APS. Rol de enfermería en el programa del adulto mayor.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     8. PROGRAMAS TRANSVERSALES
+══════════════════════════════════════════ -->
+<section class="seccion" id="transversales">
+  <div class="seccion-header">
+    <div class="seccion-icon icon-amarillo">🌐</div>
+    <div class="seccion-header-text">
+      <h2>Programas Transversales en APS</h2>
+      <div class="subtitulo-sec">PACAM · PNI · GES relacionados con personas mayores</div>
+    </div>
+  </div>
+  <div class="seccion-body">
+
+    <div class="subseccion">
+      <h3><span class="tag">Nutrición</span>PACAM: Programa de Alimentación Complementaria del Adulto Mayor </h3>
+      <p>El PACAM es un programa del MINSAL que entrega suplemento nutricional a personas mayores en situación de vulnerabilidad nutricional, a través de los CESFAM.</p>
+      <h4>Objetivos</h4>
+      <ul>
+        <li>Mejorar el estado nutricional de las personas mayores en riesgo o con malnutrición por déficit.</li>
+        <li>Prevenir la desnutrición calórico-proteica y la deficiencia de micronutrientes en personas mayores.</li>
+        <li>Complementar la alimentación habitual de la persona mayor, no reemplazarla.</li>
+      </ul>
+      <div class="callout callout-amarillo">
+        <strong>Criterios de ingreso</strong>
+        Personas de 70 años y más, beneficiarias de FONASA, inscritas en el CESFAM. Se priorizan aquellas con IMC bajo (&lt;23 kg/m²), enfermedades crónicas con mayor gasto energético o riesgo nutricional detectado en el EMPAM.
+      </div>
+      <h4>Producto entregado</h4>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-title">Bebida Láctea "Mi Sopita"</div>
+          <p>Alimento en polvo reconstituible, con proteínas, carbohidratos, grasas, vitaminas y minerales. Cantidad: <strong>2 kg/mes</strong>. Aporta aproximadamente 500 kcal/día al ser consumido en 2 porciones.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">Crema de verduras "Nutrición Activa"</div>
+          <p>Complementa la bebida láctea en algunos períodos o circuitos regionales. Enriquecida con vitamina D, calcio y hierro, especialmente relevantes para la salud ósea.</p>
+        </div>
+      </div>
+      <h4>Entrega y controles</h4>
+      <ul>
+        <li>Entrega mensual en el CESFAM, previa consulta de control.</li>
+        <li>La persona mayor debe asistir a controles de salud para mantener el beneficio.</li>
+        <li>Se evalúa IMC y estado nutricional en cada control; se registra en ficha clínica.</li>
+      </ul>
+    </div>
+
+    <div class="div-sec"></div>
+
+    <div class="subseccion">
+      <h3><span class="tag">Inmunización</span>Vacunas en personas mayores (PNI) </h3>
+      <p>El <strong>Programa Nacional de Inmunizaciones (PNI)</strong> del MINSAL incluye vacunas específicas para personas mayores, considerando su mayor riesgo de complicaciones infecciosas.</p>
+      <div class="vacuna-grid">
+        <div class="vacuna-card">
+          <div class="vacuna-head">💉 Influenza (Influenza estacional)</div>
+          <div class="vacuna-body">
+            <strong>Población:</strong> Personas de 65 años y más (y grupos de riesgo desde antes).<br>
+            <strong>Frecuencia:</strong> Anual, campaña invernal (marzo–mayo).<br>
+            <strong>Objetivo:</strong> Prevenir gripe grave, neumonía y complicaciones cardiovasculares.<br>
+            <strong>Vía:</strong> Intramuscular, dosis única por temporada.
+          </div>
+        </div>
+        <div class="vacuna-card">
+          <div class="vacuna-head">💉 Neumocócica (antineumocócica)</div>
+          <div class="vacuna-body">
+            <strong>Población:</strong> Personas de 65 años y más.<br>
+            <strong>Vacuna:</strong> VNP23 (polisacárida 23-valente) o VNC13 (conjugada 13-valente) según protocolo vigente.<br>
+            <strong>Objetivo:</strong> Prevenir neumonía neumocócica, bacteriemia y meningitis.<br>
+            <strong>Frecuencia:</strong> Dosis única (con refuerzo a los 5 años en grupos de riesgo).
+          </div>
+        </div>
+        <div class="vacuna-card">
+          <div class="vacuna-head">💉 COVID-19 (refuerzos)</div>
+          <div class="vacuna-body">
+            <strong>Población:</strong> Personas mayores son grupo prioritario.<br>
+            <strong>Frecuencia:</strong> Refuerzos según calendario vigente del MINSAL (actualizado periódicamente).<br>
+            <strong>Objetivo:</strong> Prevenir enfermedad grave, hospitalización y muerte por COVID-19.
+          </div>
+        </div>
+        <div class="vacuna-card">
+          <div class="vacuna-head">💉 Herpes Zóster</div>
+          <div class="vacuna-body">
+            <strong>Población:</strong> Personas de 60 años y más (según disponibilidad y normativa vigente).<br>
+            <strong>Objetivo:</strong> Prevenir herpes zóster y neuralgia postherpética, complicación frecuente y dolorosa en adultos mayores.<br>
+            <strong>Nota:</strong> Verificar disponibilidad en PNI Chile según año.
+          </div>
+        </div>
+        <div class="vacuna-card">
+          <div class="vacuna-head">💉 Tétanos-difteria (dTpa)</div>
+          <div class="vacuna-body">
+            <strong>Población:</strong> Adultos mayores sin esquema completo o sin refuerzo en los últimos 10 años.<br>
+            <strong>Objetivo:</strong> Mantener inmunidad antitetánica.<br>
+            <strong>Frecuencia:</strong> Refuerzo cada 10 años.
+          </div>
+        </div>
+      </div>
+      <div class="callout callout-azul">
+        <strong>Importante</strong>
+        El calendario de vacunación puede actualizarse. Siempre verificar el calendario PNI vigente en el sitio oficial del MINSAL (www.minsal.cl) o en el CESFAM correspondiente.
+      </div>
+    </div>
+
+    <div class="div-sec"></div>
+
+    <div class="subseccion">
+      <h3><span class="tag">Garantías GES</span>GES relacionados con personas mayores </h3>
+      <p>Las <strong>Garantías Explícitas en Salud (GES)</strong>, también llamadas AUGE, son un conjunto de patologías con garantías de acceso, oportunidad, calidad y protección financiera. Varias de ellas son especialmente prevalentes en personas mayores.</p>
+
+      <div class="ges-card">
+        <h4>Hipertensión Arterial Esencial (HTA) — GES N°1</h4>
+        <p>Diagnóstico y tratamiento de HTA primaria en personas de 15 años y más. Garantías de atención dentro de 24 horas desde la sospecha diagnóstica y de tratamiento oportuno.</p>
+      </div>
+
+      <div class="ges-card">
+        <h4>Diabetes Mellitus Tipo 2 — GES N°2</h4>
+        <p>Diagnóstico, tratamiento y seguimiento de DM2. Incluye HbA1c, fondo de ojo, evaluación de pie diabético y acceso a medicamentos. Alta prevalencia en personas mayores.</p>
+      </div>
+
+      <div class="ges-card">
+        <h4>Enfermedad Pulmonar Obstructiva Crónica (EPOC) — GES N°8</h4>
+        <p>Diagnóstico mediante espirometría, tratamiento con broncodilatadores y seguimiento en APS. Frecuente en adultos mayores fumadores o exfumadores.</p>
+      </div>
+
+      <div class="ges-card">
+        <h4>Depresión en personas de 15 años y más — GES N°14</h4>
+        <p>Diagnóstico y tratamiento de depresión. Incluye acceso a psicólogo y psiquiatra cuando corresponde. La depresión es subdiagnosticada en adultos mayores.</p>
+      </div>
+
+      <div class="ges-card">
+        <h4>Artrosis de cadera y/o rodilla — GES N°24</h4>
+        <p>Tratamiento médico y quirúrgico (reemplazo articular) de artrosis con limitación funcional severa. Muy prevalente en personas mayores y causa frecuente de dependencia.</p>
+      </div>
+
+      <div class="ges-card">
+        <h4>Fractura de cadera en personas de 65 años y más — GES N°42</h4>
+        <p>Tratamiento quirúrgico (dentro de 2 días desde el diagnóstico) y rehabilitación de fractura de cadera. Garantiza acceso a cirugía, kinesioterapia y seguimiento. Una de las patologías GES más relevantes para el adulto mayor.</p>
+      </div>
+
+      <div class="ges-card">
+        <h4>Cáncer (varios tipos) — Múltiples GES</h4>
+        <p>Cáncer de mama, próstata, colon, pulmón, entre otros, tienen garantías GES. Las personas mayores son el grupo de mayor riesgo y se benefician de estas garantías en diagnóstico y tratamiento oportuno.</p>
+      </div>
+
+      <div class="ges-card">
+        <h4>Hipoacusia bilateral en personas de 65 años y más — GES N°57</h4>
+        <p>Diagnóstico audiológico y entrega de audífonos para personas mayores con hipoacusia bilateral de moderada a severa. Mejora significativamente la calidad de vida y reduce el aislamiento social.</p>
+      </div>
+
+      <div class="ges-card">
+        <h4>Cataratas — GES N°16</h4>
+        <p>Cirugía de cataratas para personas con indicación quirúrgica. Alta prevalencia en adultos mayores; garantiza acceso a cirugía de facoemulsificación con implante de lente intraocular.</p>
+      </div>
+
+      <div class="ges-card">
+        <h4>Enfermedad de Parkinson — GES N°64</h4>
+        <p>Diagnóstico y tratamiento farmacológico de la enfermedad de Parkinson. Garantiza acceso a neurólogo y medicamentos específicos. Afecta principalmente a personas mayores.</p>
+      </div>
+
+      <div class="callout callout-amarillo">
+        <strong>Lista completa GES</strong>
+        A la fecha existen más de 80 problemas de salud con garantías GES. Para la lista actualizada, consultar el sitio oficial del MINSAL o la Superintendencia de Salud (www.supersalud.gob.cl).
+      </div>
+    </div>
+
+  </div>
+</section>
+
+</div><!-- /main-wrap -->
+
+<footer>
+  MINSAL · APS Chile · Programa Nacional de Personas Mayores · Material de estudio elaborado con base en orientaciones técnicas oficiales del Ministerio de Salud de Chile (MINSAL), SENAMA y bibliografía geriátrica validada. · 2024
+</footer>
+
+<a href="../index.html" class="volver-menu">← Volver al menú principal</a>
+
+</body>
+</html>
